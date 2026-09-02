@@ -1,156 +1,780 @@
 <!doctype html>
 <html lang="en-AU">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080b10"><title>SPECTRE NEXUS | GENESIS Early Access</title>
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090d">
+<title>SPECTRE NEXUS | GENESIS Early Access</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
-:root{--bg:#07090d;--p:#11161e;--p2:#171d27;--t:#f3f6f8;--m:#9da8b7;--l:#2a3340;--g:#55d6a7;--w:#f0c75e;--b:#ff7777;--blue:#79a7ff}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--t);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}
-.app{max-width:1150px;margin:auto;padding:16px 14px 102px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand small{display:block;color:var(--m);letter-spacing:.16em;font-size:10px}.brand b{font-size:21px;letter-spacing:.08em}.pill,.status{border:1px solid var(--l);border-radius:999px;padding:6px 9px;color:var(--m);font-size:12px}.status.good{color:var(--g)}.status.warn{color:var(--w)}.status.bad{color:var(--b)}.status.info{color:var(--blue)}
-.hero{padding:30px 5px 18px}.hero h1{font-size:clamp(38px,11vw,72px);line-height:.96;margin:8px 0 14px;letter-spacing:-.04em}.hero p,.muted{color:var(--m);line-height:1.5}
-.btn{border:1px solid var(--l);background:var(--p2);color:var(--t);border-radius:12px;padding:12px 14px;min-height:44px;font-weight:750}.btn.primary{background:var(--t);color:#080b10;border-color:var(--t)}.btn.ghost{background:transparent}.cta{display:flex;gap:9px;flex-wrap:wrap}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:11px}.card{grid-column:span 12;background:var(--p);border:1px solid var(--l);border-radius:18px;padding:15px}.card h2,.card h3{margin:4px 0 8px}.label{color:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase}.metric{font-size:30px;font-weight:850}
-.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 10px}.head h2{margin:0}.list{display:grid;gap:8px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;background:var(--p2);border:1px solid var(--l);border-radius:14px}.meta{font-size:12px;color:var(--m);margin-top:4px}.right{text-align:right}.hidden{display:none!important}
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(7,9,13,.97);backdrop-filter:blur(12px);border-top:1px solid var(--l);z-index:20}.navin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr);padding:7px}.nav button{border:0;background:transparent;color:var(--m);padding:10px 2px;border-radius:10px;font-size:11px}.nav button.active{background:var(--p2);color:var(--t)}
-dialog{width:min(92vw,590px);background:var(--p);color:var(--t);border:1px solid var(--l);border-radius:18px;padding:0}dialog::backdrop{background:#000b}.modal{padding:16px}.mh{display:flex;justify-content:space-between;align-items:center}.mh h3{margin:0}.close{border:0;background:none;color:var(--m);font-size:24px;min-width:44px;min-height:44px}.form{display:grid;gap:10px}.field{display:grid;gap:5px}.field label{color:var(--m);font-size:12px}input,select,textarea{width:100%;background:#0b1016;color:var(--t);border:1px solid var(--l);border-radius:11px;padding:12px;min-height:44px;font-size:16px}textarea{min-height:82px}
-.notice{border:1px solid var(--l);background:#0c1118;border-radius:12px;padding:11px;color:var(--m);font-size:12px}.progress{height:8px;border:1px solid var(--l);background:#0a0e14;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:var(--g)}
-.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.tabs button{white-space:nowrap}.score{font-size:22px;font-weight:850}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.rolebar{display:flex;gap:8px;align-items:center}.rolebar select{width:auto;min-width:150px;padding:8px 10px;min-height:38px;font-size:14px}
-.kpi{display:flex;justify-content:space-between;gap:10px;align-items:end}.kpi small{color:var(--m)}
-@media(min-width:700px){.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.app{padding:24px 24px 110px}}
-</style></head>
+:root{
+  --bg:#07090d;--panel:#11161e;--panel2:#171d27;--panel3:#0d1219;
+  --text:#f4f7f9;--muted:#9ba6b4;--line:#2b3441;--good:#55d6a7;
+  --warn:#efc75d;--bad:#ff7777;--info:#7ea8ff;--shadow:0 18px 60px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1220px;margin:auto;padding:14px 14px 110px}
+.top{
+  position:sticky;top:0;z-index:30;margin:-14px -14px 0;padding:12px 14px;
+  background:rgba(7,9,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(43,52,65,.75);
+  display:flex;align-items:center;justify-content:space-between;gap:10px
+}
+.brand small{display:block;color:var(--muted);letter-spacing:.18em;font-size:10px}.brand b{font-size:21px;letter-spacing:.08em}
+.topright{display:flex;align-items:center;gap:8px}.rolebar select{width:auto;min-width:150px;min-height:40px;padding:8px 10px;font-size:14px}
+.pill,.status{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:12px}
+.status.good{color:var(--good)}.status.warn{color:var(--warn)}.status.bad{color:var(--bad)}.status.info{color:var(--info)}
+.hero{padding:34px 5px 18px}.hero h1{font-size:clamp(40px,11vw,78px);line-height:.94;margin:8px 0 16px;letter-spacing:-.045em;max-width:900px}.hero p,.muted{color:var(--muted);line-height:1.55}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px;padding:11px 14px;min-height:44px;font-weight:760}
+.btn.primary{background:var(--text);color:#080b10;border-color:var(--text)}.btn.ghost{background:transparent}.btn.good{border-color:#285c4b;color:var(--good)}.btn.bad{border-color:#633;color:#ffc2c2}
+.cta,.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:11px}
+.card{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow)}
+.card.flat{box-shadow:none}.card h2,.card h3{margin:4px 0 8px}.label{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}.metric{font-size:31px;font-weight:860}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 10px}.head h2{margin:0}.head .sub{color:var(--muted);font-size:12px;margin-top:3px}
+.list{display:grid;gap:8px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;background:var(--panel2);border:1px solid var(--line);border-radius:14px}
+.row.stack{align-items:flex-start}.meta{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}.right{text-align:right}.hidden{display:none!important}
+.notice{border:1px solid var(--line);background:var(--panel3);border-radius:12px;padding:11px;color:var(--muted);font-size:12px}
+.progress{height:8px;border:1px solid var(--line);background:#090d13;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:var(--good)}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.tabs button{white-space:nowrap}
+.score{font-size:21px;font-weight:850}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{font-size:11px;color:var(--muted);padding:5px 7px;border:1px solid var(--line);border-radius:999px;background:#0d1219}
+.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(7,9,13,.97);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:40}
+.navin{max-width:860px;margin:auto;display:grid;grid-template-columns:repeat(11,1fr);padding:7px}
+.nav button{border:0;background:transparent;color:var(--muted);padding:10px 2px;border-radius:10px;font-size:10px}.nav button.active{background:var(--panel2);color:var(--text)}
+dialog{width:min(94vw,620px);background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:0;box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(0,0,0,.7)}.modal{padding:16px}.mh{display:flex;justify-content:space-between;align-items:center;gap:10px}.mh h3{margin:0}.close{border:0;background:none;color:var(--muted);font-size:24px;min-width:44px;min-height:44px}
+.form{display:grid;gap:10px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:12px}
+input,select,textarea{width:100%;background:#0b1016;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:12px;min-height:44px;font-size:16px}
+textarea{min-height:88px;resize:vertical}
+.search{display:flex;gap:8px}.search input{flex:1}
+.kpi{display:flex;justify-content:space-between;gap:10px;align-items:end}
+.timeline{display:grid;gap:10px}.event{position:relative;padding-left:18px}.event:before{content:"";position:absolute;left:1px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--info)}
+.switch{display:flex;gap:7px;flex-wrap:wrap}.switch button{padding:8px 10px;min-height:38px}
+.empty{text-align:center;padding:22px;color:var(--muted)}
+@media(min-width:760px){
+  .span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}
+  .app{padding:20px 22px 116px}.nav button{font-size:11px}
+}
+
+.loginwrap{min-height:calc(100vh - 90px);display:grid;place-items:center;padding:28px 0}
+.loginbox{width:min(100%,520px);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.loginbox h1{margin:4px 0 8px}.demoaccounts{display:grid;gap:8px;margin-top:12px}
+.account{padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+.account strong{display:block}.loginerror{color:var(--bad);font-size:13px;margin-top:8px}
+
+
+.builderGrid{display:grid;gap:10px}.fieldPreview{padding:10px;border:1px dashed var(--line);border-radius:12px;background:var(--panel3)}
+.fieldPreview strong{display:block;margin-bottom:4px}.pathGrid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:760px){.pathGrid{grid-template-columns:repeat(3,1fr)}}
+
+
+.talentFilters{display:grid;gap:8px}.reqGroup{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.reqToggle{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);padding:7px 9px;border-radius:10px;font-size:12px;color:var(--muted)}
+.reqToggle input{width:auto;min-height:auto}.matchbar{height:7px;border-radius:999px;background:#090d13;border:1px solid var(--line);overflow:hidden;margin-top:7px}.matchbar i{display:block;height:100%;background:var(--good)}
+@media(min-width:760px){.talentFilters{grid-template-columns:2fr 1fr 1fr}}
+
+.moduleGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.moduleTile{padding:12px;border:1px solid var(--line);background:var(--panel2);border-radius:13px}
+.moduleTile strong{display:block}.moduleTile small{color:var(--muted);line-height:1.35}
+.statline{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.industryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.industryBtn{text-align:left;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:12px;border-radius:13px;min-height:74px}
+.industryBtn.active{outline:2px solid var(--info)}
+.inboxDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bad);margin-right:5px}
+.docVersion{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
+@media(min-width:760px){.moduleGrid{grid-template-columns:repeat(4,1fr)}.industryGrid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
 <body>
 <div class="app">
+<section id="loginScreen" class="loginwrap">
+  <div class="loginbox">
+    <div class="brand"><small>SPECTRE NEXUS</small><b>GENESIS</b></div>
+    <div class="label" style="margin-top:18px">EARLY ACCESS TEST LOGIN</div>
+    <h1>Choose how you want to test GENESIS.</h1>
+    <p class="muted">These are local demonstration accounts only. They are not production-secure user accounts.</p>
+    <form id="loginForm" class="form">
+      <div class="field"><label>Username</label><input id="loginUser" autocomplete="username" placeholder="e.g. owner"></div>
+      <div class="field"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Demo password"></div>
+      <button class="btn primary" type="submit">Log in</button>
+      <div id="loginError" class="loginerror hidden">Login details not recognised.</div>
+    </form>
+    <div class="head"><h3>Test accounts</h3></div>
+    <div class="demoaccounts">
+      <div class="account"><strong>Owner / Admin</strong><div class="meta">owner / GenesisOwner1!</div></div>
+      <div class="account"><strong>App Developer</strong><div class="meta">developer / GenesisDev1!</div></div>
+      <div class="account"><strong>Customer / Client</strong><div class="meta">customer / GenesisClient1!</div></div>
+      <div class="account"><strong>Employee / Worker</strong><div class="meta">employee / GenesisWorker1!</div></div>
+    </div>
+  </div>
+</section>
+
+<div id="appShell" class="hidden">
 <header class="top">
-<div class="brand"><small>SPECTRE NEXUS</small><b>GENESIS</b></div>
-<div class="rolebar"><select id="roleSelect" onchange="setRole(this.value)"><option>Operations</option><option>Supervisor</option><option>Worker</option><option>HR / Compliance</option><option>Payroll</option><option>Client</option><option>Admin</option></select><span class="pill">EARLY ACCESS v0.2</span></div>
+  <div class="brand"><small>SPECTRE NEXUS</small><b>GENESIS</b></div>
+  <div class="topright">
+    <button class="btn ghost" style="min-height:40px;padding:8px 10px" onclick="logoutDemo()">Log out</button>
+    <select id="roleSelect" onchange="setRole(this.value)">
+      <option>Operations</option><option>Supervisor</option><option>Worker</option><option>HR / Compliance</option><option>Payroll</option><option>Client</option><option>Admin</option>
+    </select>
+    <span class="pill">EARLY ACCESS • v0.2.5 FULL PLATFORM</span>
+  </div>
 </header>
 
 <main id="landing">
-<section class="hero"><div class="label">WORKFORCE • OPERATIONS • COMPLIANCE • ASSURANCE</div><h1>One workforce.<br>One source of readiness.</h1><p>GENESIS connects people, qualifications, training, sites, incidents and work records so workers and small businesses can see what is ready, what is missing and what needs action.</p><div class="cta"><button class="btn primary" onclick="enter()">Explore live demo</button><button class="btn" onclick="enter('worker')">Start as a worker</button><button class="btn ghost" onclick="enter('business')">Small business preview</button></div></section>
-<div class="grid"><article class="card span4"><div class="label">Capability</div><h2>More than a job title</h2><p class="muted">Capture licences, formal qualifications, experience, skills and verified capability.</p></article><article class="card span4"><div class="label">Compliance</div><h2>Know who is cleared</h2><p class="muted">Match worker evidence against role, client and site requirements.</p></article><article class="card span4"><div class="label">Operations</div><h2>Close the loop</h2><p class="muted">Training, incidents, corrective actions and work records all feed back into readiness.</p></article></div>
+<section class="hero">
+  <div class="label">WORKFORCE • OPERATIONS • COMPLIANCE • ASSURANCE</div>
+  <h1>Show me what my team can actually do.</h1>
+  <p>GENESIS Early Access v0.2.2 PRO is a harder-working buyer and user testing environment: workers, clients, sites, compliance, roster decisions, training, incidents, actions, time and pay assurance in one connected demo.</p>
+  <div class="cta">
+    <button class="btn primary" onclick="enter()">Launch GENESIS demo</button>
+    <button class="btn" onclick="enter('worker')">Worker experience</button>
+    <button class="btn ghost" onclick="enter('client')">Client portal preview</button>
+  </div>
+</section>
+<div class="grid">
+  <article class="card span4"><div class="label">Operational</div><h2>Assign with confidence</h2><p class="muted">Try assigning workers to live site requirements. GENESIS blocks non-compliant assignments and explains why.</p></article>
+  <article class="card span4"><div class="label">Connected</div><h2>Train once, update everywhere</h2><p class="muted">Complete a site induction and watch capability, compliance and roster eligibility change together.</p></article>
+  <article class="card span4"><div class="label">Assurance</div><h2>Close the loop</h2><p class="muted">Create incidents, trigger corrective actions, review client-facing assurance and reconcile hours/pay.</p></article>
+</div>
+
+<div class="head"><div><div class="label">GENESIS BUILDER</div><h2>Your industry. Your clients. Your workflows.</h2></div></div>
+<div class="pathGrid">
+  <article class="card"><div class="label">START READY</div><h3>Industry Packs</h3><p class="muted">Start with a structured industry configuration, then tailor it to your organisation, clients and sites.</p></article>
+  <article class="card"><div class="label">BUILD IT YOURSELF</div><h3>GENESIS Builder</h3><p class="muted">Authorised admins can create forms, fields, checklists, workflows, triggers and site-specific operating tools without waiting for a routine code change.</p></article>
+  <article class="card"><div class="label">WE BUILD IT WITH YOU</div><h3>SPECTRE NEXUS Custom Build</h3><p class="muted">For specialised operations, SPECTRE NEXUS can configure the workspace, workflows and client/site sections around the organisation's requirements.</p></article>
+</div>
+
+
+<div class="head"><div><div class="label">FULL PLATFORM PREVIEW</div><h2>One core. Any industry. Configure what changes.</h2><div class="sub">Security is the first demonstration pack — not the limit of GENESIS.</div></div></div>
+<div class="industryGrid">
+  <button class="industryBtn active" onclick="chooseIndustry('Security',this)"><strong>Security</strong><small>Patrols, incidents, licences, site instructions</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Cleaning',this)"><strong>Cleaning</strong><small>Quality checks, chemicals, equipment, schedules</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Community Services',this)"><strong>Community Services</strong><small>Welfare, handover, safeguarding, competencies</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Logistics',this)"><strong>Logistics</strong><small>Vehicle checks, fatigue, licences, depot work</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Tourism',this)"><strong>Tourism</strong><small>Guides, manifests, locations, vehicle checks</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Facilities',this)"><strong>Facilities</strong><small>Assets, work orders, inspections, contractors</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Professional Services',this)"><strong>Professional Services</strong><small>Projects, approvals, documents, training</small></button>
+  <button class="industryBtn" onclick="chooseIndustry('Build My Own',this)"><strong>Build My Own</strong><small>Create your own structure with GENESIS Builder</small></button>
+</div>
+
 </main>
 
 <main id="ws" class="hidden">
 <section id="v-command" class="view">
-<div class="head"><div><div class="label">AEGIS MOCK SERVICES • SYNTHETIC DATA</div><h2>Command</h2></div><span class="status good">● LIVE DEMO</span></div>
-<div class="grid">
-<article class="card span3"><div class="label">Workers</div><div class="metric" id="mWorkers"></div><p class="muted">Capability profiles</p></article>
-<article class="card span3"><div class="label">Cleared</div><div class="metric" id="mClear"></div><p class="muted">Haven House ready</p></article>
-<article class="card span3"><div class="label">Open incidents</div><div class="metric" id="mInc"></div><p class="muted">Current operational events</p></article>
-<article class="card span3"><div class="label">Actions</div><div class="metric" id="mActions"></div><p class="muted">Outstanding corrective tasks</p></article>
-</div>
-<div class="head"><h2>Operational readiness</h2></div><div class="list" id="commandPeople"></div>
-<div class="head"><h2>Today's coverage</h2></div><div class="list"><div class="row"><div><strong>Haven House</strong><div class="meta">18:00–06:00 • Alex Morgan</div></div><span class="status good">COVERED</span></div><div class="row"><div><strong>NLT Gatehouse</strong><div class="meta">19:00–07:00 • Taylor Singh</div></div><span class="status warn">CHECK</span></div></div>
+  <div class="head"><div><div class="label">AEGIS MOCK SERVICES • SYNTHETIC BUYER DEMO</div><h2>Command</h2><div class="sub">Live operating picture</div></div><span class="status good">● ACTIVE</span></div>
+  <div class="grid">
+    <article class="card span3"><div class="label">Workers</div><div class="metric" id="mWorkers">0</div><p class="muted">Active profiles</p></article>
+    <article class="card span3"><div class="label">Cleared for Haven</div><div class="metric" id="mClear">0</div><p class="muted">Requirement pass</p></article>
+    <article class="card span3"><div class="label">Open incidents</div><div class="metric" id="mInc">0</div><p class="muted">Operational events</p></article>
+    <article class="card span3"><div class="label">Corrective actions</div><div class="metric" id="mActions">0</div><p class="muted">Outstanding</p></article>
+  </div>
+  <div class="head"><h2>Attention required</h2></div><div class="list" id="attention"></div>
+  <div class="head"><h2>Tonight's coverage</h2><button class="btn" onclick="view('roster')">Open roster</button></div><div class="list" id="coverage"></div>
+  <div class="head"><h2>Recent activity</h2></div><div class="card flat"><div class="timeline" id="activity"></div></div>
 </section>
 
 <section id="v-people" class="view hidden">
-<div class="head"><div><div class="label">WORKFORCE</div><h2>People & Capability</h2></div><button class="btn primary" onclick="openPerson()">Add person</button></div>
-<div class="list" id="people"></div>
+  <div class="head"><div><div class="label">WORKFORCE</div><h2>People & Capability</h2></div><button class="btn primary" onclick="personDlg.showModal()">Add person</button></div>
+  <div class="search"><input id="peopleSearch" placeholder="Search name, role or capability" oninput="renderPeople()"><button class="btn" onclick="peopleSearch.value='';renderPeople()">Clear</button></div>
+  <div class="list" id="people" style="margin-top:10px"></div>
 </section>
 
 <section id="v-sites" class="view hidden">
-<div class="head"><div><div class="label">CLIENTS & SITES</div><h2>Requirements & Matching</h2></div></div>
-<div class="tabs"><button class="btn primary" onclick="selectSite(0,this)">Haven House</button><button class="btn" onclick="selectSite(1,this)">NLT Gatehouse</button></div>
-<div id="siteDetail"></div>
+  <div class="head"><div><div class="label">CLIENTS & SITES</div><h2>Requirements & Matching</h2></div></div>
+  <div class="tabs"><button class="btn primary" onclick="selectSite(0,this)">Haven House</button><button class="btn" onclick="selectSite(1,this)">NLT Gatehouse</button></div>
+  <div id="siteDetail"></div>
+</section>
+
+<section id="v-roster" class="view hidden">
+  <div class="head"><div><div class="label">ROSTER</div><h2>Assignment Control</h2></div><button class="btn primary" onclick="assignDlg.showModal()">Assign worker</button></div>
+  <div class="notice">This demo applies site requirements before assignment. Missing mandatory credentials or induction will block the roster action.</div>
+  <div class="head"><h2>Current shifts</h2></div><div class="list" id="roster"></div>
+  <div class="head"><h2>Assignment attempts</h2></div><div class="list" id="assignmentLog"></div>
 </section>
 
 <section id="v-learn" class="view hidden">
-<div class="head"><div><div class="label">GENESIS LEARN</div><h2>Continuous Training</h2></div></div>
-<article class="card"><div class="label">Client / Site Required</div><h2>Haven House Site Induction</h2><p class="muted">Completion updates the worker's capability record and immediately recalculates Haven House clearance.</p><div class="progress"><i id="prog"></i></div><p class="meta" id="progText"></p><button class="btn primary" onclick="completeCasey()">Complete Casey's induction</button></article>
-<div class="head"><h2>Assignments</h2></div><div class="list" id="training"></div>
+  <div class="head"><div><div class="label">GENESIS LEARN</div><h2>Continuous Training</h2></div></div>
+  <article class="card">
+    <div class="label">Mandatory • Haven Community Services</div><h2>Haven House Site Induction</h2>
+    <p class="muted">Client/site induction. Completion writes the credential to the worker profile, marks training complete and recalculates site/roster eligibility.</p>
+    <div class="progress"><i id="prog"></i></div><p class="meta" id="progText"></p>
+    <button class="btn primary" onclick="completeCasey()">Complete Casey Brown's induction</button>
+  </article>
+  <div class="head"><h2>Training matrix</h2></div><div class="list" id="training"></div>
 </section>
 
 <section id="v-ops" class="view hidden">
-<div class="head"><div><div class="label">OPERATIONS</div><h2>Incidents & Actions</h2></div><button class="btn primary" onclick="incidentDlg.showModal()">New incident</button></div>
-<div class="grid"><article class="card span6"><div class="label">Open incidents</div><div class="metric" id="opsOpen"></div><p class="muted">High/Critical incidents automatically create an action in this demo.</p></article><article class="card span6"><div class="label">Open actions</div><div class="metric" id="opsActions"></div><p class="muted">Assigned corrective follow-up</p></article></div>
-<div class="head"><h2>Incident register</h2></div><div class="list" id="incidents"></div>
-<div class="head"><h2>Corrective actions</h2></div><div class="list" id="actions"></div>
+  <div class="head"><div><div class="label">OPERATIONS</div><h2>Incidents & Actions</h2></div><button class="btn primary" onclick="incidentDlg.showModal()">New incident</button></div>
+  <div class="grid">
+    <article class="card span6"><div class="label">Open incidents</div><div class="metric" id="opsOpen"></div><p class="muted">High/Critical events trigger an action.</p></article>
+    <article class="card span6"><div class="label">Open actions</div><div class="metric" id="opsActions"></div><p class="muted">Follow-up and closeout.</p></article>
+  </div>
+  <div class="head"><h2>Incident register</h2></div><div class="list" id="incidents"></div>
+  <div class="head"><h2>Corrective actions</h2></div><div class="list" id="actions"></div>
 </section>
 
 <section id="v-work" class="view hidden">
-<div class="head"><div><div class="label">TIME & PAY ASSURANCE</div><h2>Work</h2></div><button class="btn primary" onclick="shiftDlg.showModal()">Log shift</button></div>
-<div class="grid"><article class="card span4"><div class="label">Rostered</div><div class="metric">65.00h</div></article><article class="card span4"><div class="label">Actual</div><div class="metric">65.25h</div><span class="status info">+0.25h VARIANCE</span></article><article class="card span4"><div class="label">Paid</div><div class="metric">65.25h</div><span class="status good">HOURS PASS</span></article></div>
-<div class="head"><h2>Pay Right regression example</h2></div><article class="card"><div class="row"><div><strong>Gross pay</strong><div class="meta">24–30 Aug 2026 • paid 3 Sep</div></div><strong>$3,066.86</strong></div><div class="list" style="margin-top:8px"><div class="row"><span>Night</span><span>26.25h • $996.71</span></div><div class="row"><span>Sunday OT</span><span>13h • $811.20</span></div><div class="row"><span>First OT</span><span>10h • $468.00</span></div><div class="row"><span>Saturday</span><span>7.75h • $362.70</span></div><div class="row"><span>Higher OT</span><span>4.25h • $265.20</span></div><div class="row"><span>Ordinary</span><span>4h • $124.80</span></div><div class="row"><span>Allowances</span><span>$56.55</span></div></div><p class="meta">Demonstration calculation only. Pay Right is decision-support and reconciliation, not payroll/legal advice.</p></article>
-<div class="head"><h2>Work records</h2></div><div class="list" id="shifts"></div>
+  <div class="head"><div><div class="label">TIME & PAY ASSURANCE</div><h2>Work & Pay Right</h2></div><button class="btn primary" onclick="shiftDlg.showModal()">Log work</button></div>
+  <div class="grid">
+    <article class="card span4"><div class="label">Rostered</div><div class="metric">65.00h</div></article>
+    <article class="card span4"><div class="label">Actual</div><div class="metric">65.25h</div><span class="status info">+0.25h</span></article>
+    <article class="card span4"><div class="label">Paid</div><div class="metric">65.25h</div><span class="status good">HOURS PASS</span></article>
+  </div>
+  <div class="head"><h2>Pay Right regression example</h2></div>
+  <article class="card">
+    <div class="row"><div><strong>Gross pay</strong><div class="meta">24–30 Aug 2026 • paid 3 Sep</div></div><strong>$3,066.86</strong></div>
+    <div class="list" style="margin-top:8px">
+      <div class="row"><span>Night</span><span>26.25h • $996.71</span></div>
+      <div class="row"><span>Sunday OT</span><span>13h • $811.20</span></div>
+      <div class="row"><span>First OT</span><span>10h • $468.00</span></div>
+      <div class="row"><span>Saturday</span><span>7.75h • $362.70</span></div>
+      <div class="row"><span>Higher OT</span><span>4.25h • $265.20</span></div>
+      <div class="row"><span>Ordinary</span><span>4h • $124.80</span></div>
+      <div class="row"><span>Allowances</span><span>$56.55</span></div>
+    </div>
+    <p class="meta">Demonstration only. Pay Right is decision-support and reconciliation, not payroll/legal advice.</p>
+  </article>
+  <div class="head"><h2>Work records</h2></div><div class="list" id="shifts"></div>
+</section>
+
+
+
+
+<section id="v-platform" class="view hidden">
+  <div class="head"><div><div class="label">GENESIS CORE PLATFORM</div><h2>Full Platform Preview</h2><div class="sub">Workforce • Operations • Compliance • Assurance • Learning • Configuration</div></div><span class="status good">CONNECTED DEMO</span></div>
+  <div class="notice">This page brings together the complete GENESIS product direction discussed so far. Some features are interactive demonstrations; others are functional previews awaiting a secure backend, real integrations and validated rule packs before production use.</div>
+  <div class="head"><h2>Core modules</h2></div>
+  <div class="moduleGrid" id="moduleGrid"></div>
+
+  <div class="head"><div><h2>Industry configuration</h2><div class="sub">Change industry terminology and example requirements without changing the GENESIS core.</div></div></div>
+  <div class="industryGrid" id="industryPackGrid"></div>
+
+  <div class="head"><h2>Requirement inheritance</h2></div>
+  <article class="card">
+    <div class="label">REQUIREMENTS ENGINE</div>
+    <h3>Industry → Organisation → Client / Contract → Operational Unit → Role → Duty → Person</h3>
+    <p class="muted">Lower levels can add stronger requirements without silently weakening mandatory requirements above them. A change at one level recalculates affected people and work eligibility.</p>
+    <div class="list">
+      <div class="row"><span>Industry requirement</span><span class="status info">INHERITED</span></div>
+      <div class="row"><span>Organisation requirement</span><span class="status info">INHERITED</span></div>
+      <div class="row"><span>Client / contract requirement</span><span class="status info">SCOPED</span></div>
+      <div class="row"><span>Operational unit / site requirement</span><span class="status info">SCOPED</span></div>
+      <div class="row"><span>Role / duty requirement</span><span class="status good">TESTED</span></div>
+      <div class="row"><span>Individual evidence</span><span class="status good">VERIFIED</span></div>
+    </div>
+  </article>
+
+  <div class="head"><h2>Assurance loop</h2></div>
+  <article class="card"><div class="label">CONTINUOUS COMPLIANCE</div><h3>Requirement → Control → Evidence → Test → Gap → Action → Verify</h3><p class="muted">GENESIS is designed to turn compliance into a continuous operating process instead of an annual checklist.</p></article>
+</section>
+
+<section id="v-talent" class="view hidden">
+<div class="head"><div><div class="label">CAPABILITY / TALENT FINDER</div><h2>Find the Right People for the Work</h2><div class="sub">Search capability, qualifications, experience and readiness — not just job titles.</div></div><span class="status info">EXPLAINABLE MATCHING</span></div>
+<div class="notice">Mandatory gaps block suitability. Preferred skills improve ranking. The same capability engine is designed to work across industries through configurable requirements.</div>
+<article class="card" style="margin-top:10px">
+<div class="talentFilters">
+<input id="talentSearch" placeholder="Search skills, qualifications, experience or role" oninput="renderTalent()">
+<select id="talentAvailability" onchange="renderTalent()"><option value="all">Any availability</option><option value="available">Available only</option></select>
+<select id="talentReadiness" onchange="renderTalent()"><option value="all">Any readiness</option><option value="cleared">Mandatory cleared</option><option value="blocked">Mandatory gaps</option></select>
+</div>
+<div class="label" style="margin-top:12px">Mandatory requirements</div><div class="reqGroup" id="mandatoryFilters"></div>
+<div class="label" style="margin-top:12px">Preferred capability</div><div class="reqGroup" id="preferredFilters"></div>
+</article>
+<div class="head"><div><h2>Ranked workforce</h2><div class="sub" id="talentSummary"></div></div></div><div class="list" id="talentResults"></div>
+<div class="head"><h2>Workforce capability map</h2></div><div class="grid" id="capabilityMap"></div>
+</section>
+
+<section id="v-builder" class="view hidden">
+  <div class="head"><div><div class="label">GENESIS BUILDER</div><h2>Build Around the Operation</h2><div class="sub">Industry packs • organisation configuration • client/site customisation</div></div><button class="btn primary" onclick="builderDlg.showModal()">Create form</button></div>
+  <div class="notice">This demo shows the no-code configuration direction for GENESIS. Customers can start from an industry pack, customise it themselves, or engage SPECTRE NEXUS to configure specialised sections and workflows.</div>
+
+  <div class="head"><h2>Choose your path</h2></div>
+  <div class="pathGrid">
+    <article class="card"><div class="label">1 • INDUSTRY PACK</div><h3>Start from a proven structure</h3><p class="muted">Security is the first demonstration pack. Future packs can use the same GENESIS core for cleaning, facilities, community services, tourism, logistics and other mobile workforces.</p><button class="btn" onclick="loadTemplate('Security Site Inspection')">Load security example</button></article>
+    <article class="card"><div class="label">2 • SELF BUILD</div><h3>Configure in-house</h3><p class="muted">Create company, client or site-specific forms and decide what information workers must capture.</p><button class="btn" onclick="builderDlg.showModal()">Open form builder</button></article>
+    <article class="card"><div class="label">3 • CUSTOM BUILD</div><h3>SPECTRE NEXUS configuration</h3><p class="muted">Complex operating models can be scoped and configured as an implementation service instead of forcing the customer into a generic template.</p><span class="status info">IMPLEMENTATION OPTION</span></article>
+  </div>
+
+  <div class="head"><h2>Custom forms</h2><button class="btn" onclick="builderDlg.showModal()">+ New</button></div>
+  <div class="list" id="customForms"></div>
+
+  <div class="head"><h2>Workflow rules</h2></div>
+  <div class="list" id="workflowRules"></div>
+
+  <div class="head"><h2>What customers can configure</h2></div>
+  <div class="grid">
+    <article class="card span4"><div class="label">CAPTURE</div><h3>Forms & Fields</h3><p class="muted">Reports, inspections, audits, client requests, handovers, declarations, checklists and organisation-specific records.</p></article>
+    <article class="card span4"><div class="label">AUTOMATE</div><h3>Triggers & Actions</h3><p class="muted">Create notifications, corrective actions, reviews and escalation steps when defined conditions occur.</p></article>
+    <article class="card span4"><div class="label">SCOPE</div><h3>Who & Where</h3><p class="muted">Apply configurations at organisation, client, site or role level so users see what is relevant to their work.</p></article>
+  </div>
+</section>
+
+
+<section id="v-hub" class="view hidden">
+  <div class="head"><div><div class="label">BUSINESS OPERATING HUB</div><h2>Documents, Assets, Leave, Analytics & Integrations</h2></div><span class="status info"><span class="inboxDot"></span><span id="notifCount">0</span> alerts</span></div>
+
+  <div class="grid">
+    <article class="card span6">
+      <div class="head"><div><div class="label">DOCUMENT CONTROL</div><h3>Policies, SOPs & Acknowledgements</h3></div><button class="btn" onclick="releaseDocument()">Release update</button></div>
+      <div class="list" id="documents"></div>
+    </article>
+    <article class="card span6">
+      <div class="head"><div><div class="label">ASSETS</div><h3>Issue, Return & Inspection</h3></div><button class="btn" onclick="addAsset()">Add demo asset</button></div>
+      <div class="list" id="assets"></div>
+    </article>
+
+    <article class="card span6">
+      <div class="head"><div><div class="label">AVAILABILITY / LEAVE</div><h3>Workforce Planning</h3></div></div>
+      <div class="list" id="leaveList"></div>
+    </article>
+    <article class="card span6">
+      <div class="head"><div><div class="label">NOTIFICATIONS</div><h3>Action Centre</h3></div><button class="btn" onclick="clearNotifications()">Mark all read</button></div>
+      <div class="list" id="notifications"></div>
+    </article>
+  </div>
+
+  <div class="head"><h2>Analytics</h2></div>
+  <div class="grid">
+    <article class="card span3"><div class="label">Readiness</div><div class="metric" id="anReady">0%</div><p class="muted">workforce mandatory pass</p></article>
+    <article class="card span3"><div class="label">Training</div><div class="metric" id="anTrain">0%</div><p class="muted">induction completion</p></article>
+    <article class="card span3"><div class="label">Open actions</div><div class="metric" id="anActions">0</div><p class="muted">requires follow-up</p></article>
+    <article class="card span3"><div class="label">Custom forms</div><div class="metric" id="anForms">0</div><p class="muted">configured by customer</p></article>
+  </div>
+
+  <div class="head"><h2>Integration layer</h2></div>
+  <div class="list">
+    <div class="row"><div><strong>Payroll / Accounting</strong><div class="meta">API where available • CSV/import/export fallback</div></div><span class="status warn">CONNECTOR ROADMAP</span></div>
+    <div class="row"><div><strong>Identity / SSO</strong><div class="meta">Secure production authentication and enterprise identity</div></div><span class="status warn">PRODUCTION PHASE</span></div>
+    <div class="row"><div><strong>Communications</strong><div class="meta">Email/SMS/push escalation workflows</div></div><span class="status warn">PRODUCTION PHASE</span></div>
+    <div class="row"><div><strong>Public API</strong><div class="meta">Open integration architecture to avoid vendor lock-in</div></div><span class="status info">ARCHITECTURE LOCKED</span></div>
+  </div>
+
+  <div class="head"><h2>Commercial structure preview</h2></div>
+  <div class="grid">
+    <article class="card span4"><div class="label">FREE / START</div><h3>Individual + micro business entry</h3><p class="muted">Low-friction entry so GENESIS can grow from individuals, sole traders and very small teams.</p></article>
+    <article class="card span4"><div class="label">PAID MODULES</div><h3>CORE • WORK • OPERATE • PAY • ASSURE</h3><p class="muted">Customers expand as their workforce and operational needs grow.</p></article>
+    <article class="card span4"><div class="label">IMPLEMENTATION</div><h3>SPECTRE NEXUS Custom Build</h3><p class="muted">Configuration, imports, requirements, workflows and specialised client/site setup can be sold as implementation services.</p></article>
+  </div>
 </section>
 
 <section id="v-more" class="view hidden">
-<div class="head"><div><div class="label">CLIENT / EARLY ACCESS</div><h2>Assurance & Build Status</h2></div></div>
-<article class="card"><div class="label">Client portal preview • Haven Community Services</div><h2>Haven House Assurance</h2><div class="grid"><div class="card span4"><div class="label">Coverage</div><div class="metric">100%</div></div><div class="card span4"><div class="label">Cleared workers</div><div class="metric" id="clientCleared"></div></div><div class="card span4"><div class="label">Open incidents</div><div class="metric" id="clientInc"></div></div></div><p class="meta">Client view intentionally excludes HR, payroll and unrelated client data.</p></article>
-<div class="head"><h2>Build status</h2></div><div class="list"><div class="row"><div><strong>Capability profiles</strong><div class="meta">Persistent demo records</div></div><span class="status good">LIVE</span></div><div class="row"><div><strong>Site requirement matching</strong><div class="meta">Mandatory + preferred capability scoring</div></div><span class="status good">LIVE</span></div><div class="row"><div><strong>Training-to-clearance</strong><div class="meta">Completion recalculates readiness</div></div><span class="status good">LIVE</span></div><div class="row"><div><strong>Incident-to-action workflow</strong><div class="meta">High severity creates corrective action</div></div><span class="status good">LIVE</span></div><div class="row"><div><strong>Role-aware presentation</strong><div class="meta">Worker / Ops / HR / Payroll / Client / Admin</div></div><span class="status info">DEMO</span></div><div class="row"><div><strong>Real accounts & secure database</strong><div class="meta">Next infrastructure stage</div></div><span class="status warn">NEXT</span></div></div>
-<div class="head"><h2>Safety</h2></div><div class="notice">Synthetic data only. Browser-local storage is not production security. Do not enter real employee, client, payroll, incident or identity data yet.</div>
-<div class="cta" style="margin-top:12px"><button class="btn" onclick="resetDemo()">Reset demo</button><button class="btn ghost" onclick="exitDemo()">Landing page</button></div>
+  <div class="head"><div><div class="label">ASSURANCE / CLIENT PORTAL</div><h2>Buyer Experience</h2></div></div>
+  <article class="card">
+    <div class="label">Haven Community Services • Client view</div><h2>Haven House Assurance</h2>
+    <div class="grid">
+      <div class="card span4"><div class="label">Coverage</div><div class="metric">100%</div></div>
+      <div class="card span4"><div class="label">Cleared workers</div><div class="metric" id="clientCleared"></div></div>
+      <div class="card span4"><div class="label">Open incidents</div><div class="metric" id="clientInc"></div></div>
+    </div>
+    <div class="head"><h3>Approved client information</h3></div>
+    <div class="list" id="clientFeed"></div>
+    <p class="meta">Client portal intentionally excludes HR, payroll, unrelated sites and confidential workforce records.</p>
+  </article>
+  <div class="head"><h2>What this buyer demo includes</h2></div>
+  <div class="list">
+    <div class="row"><div><strong>Capability & credential records</strong><div class="meta">Verified / pending / expiry states</div></div><span class="status good">LIVE</span></div>
+    <div class="row"><div><strong>Site requirement matching</strong><div class="meta">Mandatory + preferred capability scoring</div></div><span class="status good">LIVE</span></div>
+    <div class="row"><div><strong>Roster blocking</strong><div class="meta">Non-compliant assignment attempts fail with reason</div></div><span class="status good">LIVE</span></div>
+    <div class="row"><div><strong>Training-to-clearance</strong><div class="meta">Induction completion changes eligibility</div></div><span class="status good">LIVE</span></div>
+    <div class="row"><div><strong>Incident-to-action workflow</strong><div class="meta">High/Critical event creates corrective task</div></div><span class="status good">LIVE</span></div>
+    <div class="row"><div><strong>Test login roles</strong><div class="meta">Owner / Developer / Customer / Employee</div></div><span class="status good">LIVE</span></div><div class="row"><div><strong>Role-aware experience</strong><div class="meta">Worker / Ops / HR / Payroll / Client / Admin</div></div><span class="status info">DEMO</span></div>
+    <div class="row"><div><strong>Multi-industry core architecture</strong><div class="meta">Security, cleaning, community services, logistics, tourism, facilities, professional services and build-your-own preview</div></div><span class="status good">LIVE DEMO</span></div>
+<div class="row"><div><strong>Documents / Assets / Availability / Notifications / Analytics</strong><div class="meta">Broader operating-platform preview beyond security reporting</div></div><span class="status good">LIVE DEMO</span></div>
+<div class="row"><div><strong>Open integration layer</strong><div class="meta">API-first design with import/export fallback where direct integration is unavailable</div></div><span class="status info">ARCHITECTURE</span></div><div class="row"><div><strong>Capability / Talent Finder</strong><div class="meta">Search, mandatory/preferred filtering, availability and explainable ranking</div></div><span class="status good">LIVE DEMO</span></div><div class="row"><div><strong>GENESIS Builder</strong><div class="meta">Custom forms + workflow rules + industry/company/site scope</div></div><span class="status good">LIVE DEMO</span></div><div class="row"><div><strong>Real account security & cloud database</strong><div class="meta">Required before real data / commercial production use</div></div><span class="status warn">NEXT</span></div>
+  </div>
+  <div class="head"><h2>Demo controls</h2></div>
+  <div class="notice">Synthetic data only. Browser-local storage is not production security. Do not enter real employee, client, payroll, incident or identity information yet.</div>
+  <div class="cta" style="margin-top:10px"><button class="btn" onclick="resetDemo()">Reset GENESIS demo</button><button class="btn ghost" onclick="exitDemo()">Landing page</button></div>
 </section>
 </main>
 </div>
+</div>
 
 <nav id="nav" class="nav hidden"><div class="navin">
-<button data-v="command" class="active">Command</button><button data-v="people">People</button><button data-v="sites">Sites</button><button data-v="learn">Learn</button><button data-v="ops">Ops</button><button data-v="work">Work</button>
+<button data-v="command" class="active">Command</button><button data-v="platform">Platform</button><button data-v="people">People</button><button data-v="sites">Sites</button><button data-v="roster">Roster</button><button data-v="learn">Learn</button><button data-v="ops">Ops</button><button data-v="work">Pay</button><button data-v="talent">Talent</button><button data-v="builder">Builder</button><button data-v="hub">Hub</button>
 </div></nav>
 
-<dialog id="personDlg"><form class="modal" id="personForm"><div class="mh"><h3>Add person</h3><button type="button" class="close" onclick="personDlg.close()">×</button></div><div class="form"><div class="field"><label>Name</label><input id="pn" required placeholder="Jordan Lee"></div><div class="field"><label>Role</label><input id="pr" required placeholder="Security Officer"></div><button class="btn primary">Add demo worker</button></div></form></dialog>
-<dialog id="credDlg"><form class="modal" id="credForm"><div class="mh"><h3>Add qualification / capability</h3><button type="button" class="close" onclick="credDlg.close()">×</button></div><div class="form"><input type="hidden" id="ci"><div class="field"><label>Qualification / capability</label><input id="cn" required placeholder="Mental Health First Aid"></div><div class="field"><label>Expiry (optional)</label><input id="ce" type="date"></div><button class="btn primary">Save</button></div></form></dialog>
-<dialog id="shiftDlg"><form class="modal" id="shiftForm"><div class="mh"><h3>Log work record</h3><button type="button" class="close" onclick="shiftDlg.close()">×</button></div><div class="form"><div class="field"><label>Site</label><input id="ss" required placeholder="Haven House"></div><div class="field"><label>Actual hours</label><input id="sh" required type="number" min="0" max="24" step=".25" value="8"></div><button class="btn primary">Save work record</button></div></form></dialog>
-<dialog id="incidentDlg"><form class="modal" id="incidentForm"><div class="mh"><h3>New incident</h3><button type="button" class="close" onclick="incidentDlg.close()">×</button></div><div class="form"><div class="field"><label>Site</label><select id="is"><option>Haven House</option><option>NLT Gatehouse</option></select></div><div class="field"><label>Type</label><input id="it" required placeholder="Aggressive behaviour"></div><div class="field"><label>Severity</label><select id="iv"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></div><div class="field"><label>Summary</label><textarea id="iu" required placeholder="Short operational summary"></textarea></div><button class="btn primary">Create incident</button></div></form></dialog>
+<dialog id="personDlg"><form class="modal" id="personForm">
+<div class="mh"><h3>Add worker</h3><button type="button" class="close" onclick="personDlg.close()">×</button></div>
+<div class="form">
+<div class="field"><label>Name</label><input id="pn" required placeholder="Jordan Lee"></div>
+<div class="field"><label>Role</label><input id="pr" required placeholder="Security Officer"></div>
+<div class="field"><label>Experience summary</label><textarea id="pe" placeholder="e.g. 5 years security, tourism guide, First Aid trainer"></textarea></div>
+<button class="btn primary">Add worker</button>
+</div></form></dialog>
+
+<dialog id="credDlg"><form class="modal" id="credForm">
+<div class="mh"><h3>Add credential / capability</h3><button type="button" class="close" onclick="credDlg.close()">×</button></div>
+<div class="form">
+<input type="hidden" id="ci">
+<div class="field"><label>Qualification / capability</label><input id="cn" required placeholder="Mental Health First Aid"></div>
+<div class="field"><label>Status</label><select id="cv"><option>Verified</option><option>Pending verification</option></select></div>
+<div class="field"><label>Expiry (optional)</label><input id="ce" type="date"></div>
+<button class="btn primary">Save credential</button>
+</div></form></dialog>
+
+<dialog id="assignDlg"><form class="modal" id="assignForm">
+<div class="mh"><h3>Assign worker to shift</h3><button type="button" class="close" onclick="assignDlg.close()">×</button></div>
+<div class="form">
+<div class="field"><label>Site</label><select id="as"><option value="0">Haven House</option><option value="1">NLT Gatehouse</option></select></div>
+<div class="field"><label>Worker</label><select id="aw"></select></div>
+<div class="field"><label>Shift</label><select id="at"><option>18:00–06:00</option><option>19:00–07:00</option><option>06:00–12:30</option></select></div>
+<button class="btn primary">Check & assign</button>
+</div></form></dialog>
+
+<dialog id="incidentDlg"><form class="modal" id="incidentForm">
+<div class="mh"><h3>New incident</h3><button type="button" class="close" onclick="incidentDlg.close()">×</button></div>
+<div class="form">
+<div class="field"><label>Site</label><select id="is"><option>Haven House</option><option>NLT Gatehouse</option></select></div>
+<div class="field"><label>Type</label><input id="it" required placeholder="Aggressive behaviour"></div>
+<div class="field"><label>Severity</label><select id="iv"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></div>
+<div class="field"><label>Summary</label><textarea id="iu" required placeholder="Short operational summary"></textarea></div>
+<label style="display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px"><input id="clientVisible" type="checkbox" style="width:auto;min-height:auto"> Approved for client portal</label>
+<button class="btn primary">Create incident</button>
+</div></form></dialog>
+
+<dialog id="shiftDlg"><form class="modal" id="shiftForm">
+<div class="mh"><h3>Log work record</h3><button type="button" class="close" onclick="shiftDlg.close()">×</button></div>
+<div class="form">
+<div class="field"><label>Site</label><input id="ss" required placeholder="Haven House"></div>
+<div class="field"><label>Actual hours</label><input id="sh" required type="number" min="0" max="24" step=".25" value="8"></div>
+<div class="field"><label>Note</label><textarea id="sn" placeholder="Optional shift note"></textarea></div>
+<button class="btn primary">Save work record</button>
+</div></form></dialog>
+
+
+<dialog id="builderDlg"><form class="modal" id="builderForm">
+<div class="mh"><h3>Create custom GENESIS form</h3><button type="button" class="close" onclick="builderDlg.close()">×</button></div>
+<div class="form">
+<div class="field"><label>Form name</label><input id="bfName" required placeholder="Vehicle Inspection"></div>
+<div class="field"><label>Industry / use</label><select id="bfIndustry"><option>Security</option><option>Cleaning</option><option>Facilities</option><option>Community Services</option><option>Tourism</option><option>Logistics</option><option>Other</option></select></div>
+<div class="field"><label>Applies to</label><select id="bfScope"><option>Whole organisation</option><option>Haven Community Services</option><option>Haven House</option><option>Northern Logistics Terminal</option><option>NLT Gatehouse</option><option>Security Officers</option><option>Supervisors</option></select></div>
+<div class="field"><label>Fields (one per line)</label><textarea id="bfFields" required placeholder="Vehicle registration&#10;Odometer&#10;Damage found&#10;Photo required&#10;Notes"></textarea></div>
+<div class="field"><label>Trigger condition (optional)</label><input id="bfTrigger" placeholder="Damage found = Yes"></div>
+<div class="field"><label>Then action (optional)</label><input id="bfAction" placeholder="Create corrective action + notify supervisor"></div>
+<button class="btn primary">Create custom form</button>
+</div></form></dialog>
 
 <script>
-const KEY="genesis-v02-beef";
-const seed={people:[
-{name:"Alex Morgan",role:"Security Officer",creds:["Security Licence","First Aid","Haven House Site Induction","Mental Health First Aid"],training:true},
-{name:"Taylor Singh",role:"Security Officer",creds:["Security Licence","First Aid"],training:false},
-{name:"Morgan Lee",role:"Supervisor",creds:["Security Licence","First Aid","Haven House Site Induction","Training Qualification"],training:true},
-{name:"Casey Brown",role:"Security Officer",creds:["Security Licence","First Aid"],training:false}
-],sites:[
-{name:"Haven House",client:"Haven Community Services",required:["Security Licence","First Aid","Haven House Site Induction"],preferred:["Mental Health First Aid"]},
-{name:"NLT Gatehouse",client:"Northern Logistics Terminal",required:["Security Licence","First Aid"],preferred:["Traffic Management"]}
-],shifts:[{site:"Haven House",hours:12.25},{site:"NLT Gatehouse",hours:13}],
-incidents:[{id:1,site:"Haven House",type:"Aggressive behaviour",severity:"Medium",summary:"Verbal aggression managed without injury.",status:"Open"}],
-actions:[{id:1,title:"Review de-escalation refresher completion",site:"Haven House",owner:"Operations",status:"Open"}]};
+const KEY="genesis-v02-pro-demo";
+const seed={
+people:[
+{name:"Alex Morgan",role:"Security Officer",experience:"Community security and vulnerable-person environments",available:true,capabilities:["De-escalation","Community Services","Customer Service","Incident Reporting","Tourism"],credentials:[
+{name:"Security Licence",status:"Verified",expiry:"2027-05-30"},{name:"First Aid",status:"Verified",expiry:"2027-01-15"},{name:"Haven House Site Induction",status:"Verified",expiry:""},{name:"Mental Health First Aid",status:"Verified",expiry:""}],training:true},
+{name:"Taylor Singh",role:"Security Officer",experience:"Gatehouse, logistics and static security",available:false,capabilities:["Logistics","Access Control","Customer Service","Vehicle Operations"],credentials:[
+{name:"Security Licence",status:"Verified",expiry:"2027-03-20"},{name:"First Aid",status:"Verified",expiry:"2026-10-01"}],training:false},
+{name:"Morgan Lee",role:"Supervisor",experience:"Supervision, investigations and workplace training",available:true,capabilities:["Supervision","Investigations","Training","Leadership","Client Liaison"],credentials:[
+{name:"Security Licence",status:"Verified",expiry:"2027-08-12"},{name:"First Aid",status:"Verified",expiry:"2027-04-11"},{name:"Haven House Site Induction",status:"Verified",expiry:""},{name:"Training Qualification",status:"Verified",expiry:""}],training:true},
+{name:"Casey Brown",role:"Security Officer",experience:"Static security and customer service",available:true,capabilities:["Customer Service","Static Operations","Report Writing"],credentials:[
+{name:"Security Licence",status:"Verified",expiry:"2027-02-08"},{name:"First Aid",status:"Verified",expiry:"2027-02-17"}],training:false}
+],
+sites:[
+{name:"Haven House",client:"Haven Community Services",required:["Security Licence","First Aid","Haven House Site Induction"],preferred:["Mental Health First Aid"],kpi:"100% roster coverage"},
+{name:"NLT Gatehouse",client:"Northern Logistics Terminal",required:["Security Licence","First Aid"],preferred:["Traffic Management"],kpi:"Gate coverage + access control"}
+],
+roster:[
+{site:"Haven House",worker:"Alex Morgan",shift:"18:00–06:00",status:"Cleared"},
+{site:"NLT Gatehouse",worker:"Taylor Singh",shift:"19:00–07:00",status:"Cleared"}
+],
+assignmentLog:[],
+shifts:[{site:"Haven House",hours:12.25,note:"18:00–06:15 • late relief arrival"},{site:"NLT Gatehouse",hours:13,note:"Sunday shift"}],
+incidents:[{id:1,site:"Haven House",type:"Aggressive behaviour",severity:"Medium",summary:"Verbal aggression managed without injury.",status:"Open",clientVisible:true}],
+actions:[{id:1,title:"Review de-escalation refresher completion",site:"Haven House",owner:"Operations",status:"Open"}],
+activity:[
+"Buyer demo workspace opened",
+"Haven House roster coverage confirmed",
+"Casey Brown requires Haven House Site Induction"
+],
+customForms:[
+{name:"Incident Report",industry:"Security",scope:"Whole organisation",fields:["Incident type","Location","Risk rating","Summary","Action taken"],trigger:"Risk rating = High or Critical",action:"Create corrective action + notify Operations"},
+{name:"Haven House Welfare Check",industry:"Security",scope:"Haven House",fields:["Person/location","Welfare status","Action required","Notes"],trigger:"Action required = Yes",action:"Notify supervisor"}
+],
+workflowRules:[
+{name:"High-risk incident escalation",scope:"Whole organisation",when:"Risk = High/Critical",then:"Notify Operations + create corrective action"},
+{name:"Haven House induction control",scope:"Haven House",when:"Worker missing mandatory induction",then:"Block roster assignment"}
+],
+selectedIndustry:"Security",
+documents:[
+{name:"Static Site Operations SOP",version:"v3.0",status:"Current",ack:3,total:4},
+{name:"Incident Escalation Policy",version:"v2.1",status:"Current",ack:4,total:4},
+{name:"Code of Conduct",version:"v4.0",status:"Current",ack:4,total:4}
+],
+assets:[
+{name:"Radio 01",type:"Radio",assigned:"Alex Morgan",status:"Issued"},
+{name:"Key Set HH-01",type:"Keys",assigned:"Morgan Lee",status:"Issued"},
+{name:"Vehicle A01",type:"Vehicle",assigned:"Operations",status:"Inspection due"}
+],
+leave:[
+{name:"Taylor Singh",type:"Unavailable",period:"Tonight",status:"Approved"},
+{name:"Casey Brown",type:"Available",period:"Tonight",status:"Available"}
+],
+notifications:[
+{text:"Casey Brown missing Haven House induction",read:false},
+{text:"Taylor Singh First Aid expires soon",read:false},
+{text:"Vehicle A01 inspection due",read:false}
+]};
 let S=load(),siteIx=0,role="Operations";
+
+const TEST_ACCOUNTS={
+  owner:{password:"GenesisOwner1!",role:"Admin",label:"Owner / Admin"},
+  developer:{password:"GenesisDev1!",role:"Admin",label:"App Developer"},
+  customer:{password:"GenesisClient1!",role:"Client",label:"Customer / Client"},
+  employee:{password:"GenesisWorker1!",role:"Worker",label:"Employee / Worker"}
+};
+let currentUser=sessionStorage.getItem("genesis-demo-user")||"";
+
 function clone(x){return JSON.parse(JSON.stringify(x))}
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||clone(seed)}catch(e){return clone(seed)}}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY))||clone(seed);x.people=(x.people||[]).map(p=>({...p,available:p.available!==false,capabilities:p.capabilities||[]}));x.customForms=x.customForms||clone(seed.customForms);x.workflowRules=x.workflowRules||clone(seed.workflowRules);x.selectedIndustry=x.selectedIndustry||"Security";x.documents=x.documents||clone(seed.documents);x.assets=x.assets||clone(seed.assets);x.leave=x.leave||clone(seed.leave);x.notifications=x.notifications||clone(seed.notifications);return x}catch(e){return clone(seed)}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S))}
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function cleared(p,site=S.sites[0]){return site.required.every(r=>p.creds.some(c=>c.startsWith(r)))}
-function matchScore(p,site){let req=site.required.filter(r=>p.creds.some(c=>c.startsWith(r))).length;let pref=site.preferred.filter(r=>p.creds.some(c=>c.startsWith(r))).length;return Math.round((req/site.required.length)*85+(pref/Math.max(1,site.preferred.length))*15)}
-function enter(mode){landing.classList.add("hidden");ws.classList.remove("hidden");nav.classList.remove("hidden");if(mode==="worker")setRole("Worker");if(mode==="business")setRole("Operations");render();view(role==="Client"?"more":"command")}
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function cred(p,n){return p.credentials.find(c=>c.name===n&&c.status==="Verified")}
+function cleared(p,site){return site.required.every(r=>!!cred(p,r))}
+function score(p,site){const r=site.required.filter(x=>cred(p,x)).length, pref=site.preferred.filter(x=>cred(p,x)).length;return Math.round((r/site.required.length)*85+(pref/Math.max(1,site.preferred.length))*15)}
+function missing(p,site){return site.required.filter(r=>!cred(p,r))}
+function enter(mode){landing.classList.add("hidden");ws.classList.remove("hidden");nav.classList.remove("hidden");if(mode==="worker")setRole("Worker");if(mode==="client")setRole("Client");render();view(mode==="client"?"more":"command")}
 function exitDemo(){ws.classList.add("hidden");nav.classList.add("hidden");landing.classList.remove("hidden");scrollTo(0,0)}
-function setRole(r){role=r;roleSelect.value=r;renderRole();if(!ws.classList.contains("hidden"))render()}
+function setRole(r){role=r;roleSelect.value=r;renderRole();if(!ws.classList.contains("hidden")){render();if(r==="Client")view("more")}}
+
+function applyLogin(user){
+  currentUser=user;
+  sessionStorage.setItem("genesis-demo-user",user);
+  const acct=TEST_ACCOUNTS[user];
+  loginScreen.classList.add("hidden");
+  appShell.classList.remove("hidden");
+  role=acct.role;
+  roleSelect.value=acct.role;
+  renderRole();
+  render();
+  landing.classList.remove("hidden");
+  ws.classList.add("hidden");
+  nav.classList.add("hidden");
+}
+function logoutDemo(){
+  sessionStorage.removeItem("genesis-demo-user");
+  currentUser="";
+  appShell.classList.add("hidden");
+  nav.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+  loginUser.value="";
+  loginPass.value="";
+  loginError.classList.add("hidden");
+  scrollTo(0,0);
+}
+loginForm.onsubmit=e=>{
+  e.preventDefault();
+  const u=loginUser.value.trim().toLowerCase();
+  const p=loginPass.value;
+  if(TEST_ACCOUNTS[u]&&TEST_ACCOUNTS[u].password===p){applyLogin(u)}
+  else{loginError.classList.remove("hidden")}
+};
+
 function renderRole(){
- const hideWork=role==="Client"; const hidePeople=role==="Client"; const hideOps=role==="Payroll"; const hideSites=role==="Payroll";
- document.querySelector('[data-v="people"]').classList.toggle("hidden",hidePeople);
- document.querySelector('[data-v="work"]').classList.toggle("hidden",hideWork);
- document.querySelector('[data-v="ops"]').classList.toggle("hidden",hideOps);
- document.querySelector('[data-v="sites"]').classList.toggle("hidden",hideSites);
+  const hide={people:role==="Client",sites:role==="Payroll",roster:role==="Client"||role==="Payroll",learn:role==="Client"||role==="Payroll",ops:role==="Payroll",work:role==="Client",talent:["Client","Payroll"].includes(role),builder:["Client","Worker","Payroll"].includes(role),platform:false,hub:["Client","Worker"].includes(role)};
+  Object.entries(hide).forEach(([k,v])=>document.querySelector(`[data-v="${k}"]`).classList.toggle("hidden",v));
 }
 function view(n){document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));document.getElementById("v-"+n).classList.remove("hidden");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.v===n));scrollTo(0,0)}
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>view(b.dataset.v));
+
 function render(){
- renderRole();
- let c=S.people.filter(p=>cleared(p)).length;
- mWorkers.textContent=S.people.length;mClear.textContent=c;mInc.textContent=S.incidents.filter(x=>x.status==="Open").length;mActions.textContent=S.actions.filter(x=>x.status==="Open").length;
- opsOpen.textContent=S.incidents.filter(x=>x.status==="Open").length;opsActions.textContent=S.actions.filter(x=>x.status==="Open").length;
- clientCleared.textContent=c+"/"+S.people.length;clientInc.textContent=S.incidents.filter(x=>x.site==="Haven House"&&x.status==="Open").length;
- commandPeople.innerHTML=S.people.map(p=>`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.role)} • Haven House • ${matchScore(p,S.sites[0])}% match</div></div><span class="status ${cleared(p)?"good":"bad"}">${cleared(p)?"CLEARED":"NOT CLEARED"}</span></div>`).join("");
- people.innerHTML=S.people.map((p,i)=>`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.role)}<br>${esc(p.creds.join(" • "))||"No capabilities recorded"}</div></div><div class="right"><div class="score">${matchScore(p,S.sites[0])}%</div><span class="status ${cleared(p)?"good":"bad"}">${cleared(p)?"CLEARED":"BLOCKED"}</span><div style="margin-top:7px"><button class="btn" onclick="openCred(${i})">+ Capability</button></div></div></div>`).join("");
- const done=S.people.filter(p=>p.training).length;prog.style.width=(done/S.people.length*100)+"%";progText.textContent=`${done} of ${S.people.length} workers complete`;
- training.innerHTML=S.people.map(p=>`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">Haven House Site Induction</div></div><span class="status ${p.training?"good":"warn"}">${p.training?"COMPLETE":"ASSIGNED"}</span></div>`).join("");
- shifts.innerHTML=S.shifts.map(x=>`<div class="row"><strong>${esc(x.site)}</strong><strong>${Number(x.hours).toFixed(2)}h</strong></div>`).join("");
- incidents.innerHTML=S.incidents.map(x=>`<div class="row"><div><strong>${esc(x.type)}</strong><div class="meta">${esc(x.site)} • ${esc(x.summary)}</div></div><div class="right"><span class="status ${x.severity==="Critical"||x.severity==="High"?"bad":x.severity==="Medium"?"warn":"good"}">${esc(x.severity)}</span><div class="meta">${esc(x.status)}</div></div></div>`).join("")||'<div class="notice">No incidents recorded.</div>';
- actions.innerHTML=S.actions.map((x,i)=>`<div class="row"><div><strong>${esc(x.title)}</strong><div class="meta">${esc(x.site)} • Owner: ${esc(x.owner)}</div></div><button class="btn" onclick="closeAction(${i})">${x.status==="Open"?"Close":"Closed"}</button></div>`).join("")||'<div class="notice">No corrective actions.</div>';
- renderSite();
+  renderRole();
+  const haven=S.sites[0], c=S.people.filter(p=>cleared(p,haven)).length;
+  mWorkers.textContent=S.people.length;mClear.textContent=c;mInc.textContent=S.incidents.filter(x=>x.status==="Open").length;mActions.textContent=S.actions.filter(x=>x.status==="Open").length;
+  opsOpen.textContent=S.incidents.filter(x=>x.status==="Open").length;opsActions.textContent=S.actions.filter(x=>x.status==="Open").length;
+  clientCleared.textContent=`${c}/${S.people.length}`;clientInc.textContent=S.incidents.filter(x=>x.site==="Haven House"&&x.status==="Open"&&x.clientVisible).length;
+
+  const att=[];
+  S.people.forEach(p=>{let m=missing(p,haven);if(m.length)att.push(`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">Haven House blocked • Missing: ${esc(m.join(", "))}</div></div><span class="status bad">ACTION</span></div>`)});
+  S.people.forEach(p=>p.credentials.forEach(c=>{if(c.expiry&&c.expiry<"2026-11-01")att.push(`<div class="row"><div><strong>${esc(c.name)}</strong><div class="meta">${esc(p.name)} • expires ${esc(c.expiry)}</div></div><span class="status warn">EXPIRING</span></div>`)}));
+  attention.innerHTML=att.join("")||'<div class="notice">No current alerts.</div>';
+
+  coverage.innerHTML=S.roster.map(r=>`<div class="row"><div><strong>${esc(r.site)}</strong><div class="meta">${esc(r.shift)} • ${esc(r.worker)}</div></div><span class="status ${r.status==="Cleared"?"good":"bad"}">${esc(r.status).toUpperCase()}</span></div>`).join("");
+  activity.innerHTML=S.activity.slice(0,6).map(a=>`<div class="event"><strong>${esc(a)}</strong><div class="meta">Demo activity</div></div>`).join("");
+
+  renderPeople();
+  renderSite();
+  renderRoster();
+  renderBuilder();
+  renderTalent();
+  renderPlatform();
+  renderHub();
+
+  const done=S.people.filter(p=>p.training).length;prog.style.width=(done/S.people.length*100)+"%";progText.textContent=`${done} of ${S.people.length} workers complete`;
+  training.innerHTML=S.people.map(p=>`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">Haven House Site Induction</div></div><span class="status ${p.training?"good":"warn"}">${p.training?"COMPLETE":"ASSIGNED"}</span></div>`).join("");
+
+  incidents.innerHTML=S.incidents.map(x=>`<div class="row stack"><div><strong>${esc(x.type)}</strong><div class="meta">${esc(x.site)} • ${esc(x.summary)}${x.clientVisible?" • Client visible":""}</div></div><div class="right"><span class="status ${["High","Critical"].includes(x.severity)?"bad":x.severity==="Medium"?"warn":"good"}">${esc(x.severity)}</span><div class="meta">${esc(x.status)}</div></div></div>`).join("")||'<div class="empty">No incidents.</div>';
+  actions.innerHTML=S.actions.map((x,i)=>`<div class="row"><div><strong>${esc(x.title)}</strong><div class="meta">${esc(x.site)} • Owner: ${esc(x.owner)}</div></div><button class="btn ${x.status==="Open"?"":"good"}" onclick="toggleAction(${i})">${x.status==="Open"?"Close":"Reopen"}</button></div>`).join("")||'<div class="empty">No actions.</div>';
+  shifts.innerHTML=S.shifts.map(x=>`<div class="row"><div><strong>${esc(x.site)}</strong><div class="meta">${esc(x.note)}</div></div><strong>${Number(x.hours).toFixed(2)}h</strong></div>`).join("");
+  clientFeed.innerHTML=S.incidents.filter(x=>x.site==="Haven House"&&x.clientVisible).map(x=>`<div class="row"><div><strong>${esc(x.type)}</strong><div class="meta">${esc(x.summary)}</div></div><span class="status info">APPROVED</span></div>`).join("")||'<div class="notice">No client-approved incidents.</div>';
+
+  aw.innerHTML=S.people.map((p,i)=>`<option value="${i}">${esc(p.name)}</option>`).join("");
 }
-function renderSite(){const s=S.sites[siteIx];siteDetail.innerHTML=`<div class="head"><div><div class="label">${esc(s.client)}</div><h2>${esc(s.name)}</h2></div></div><div class="grid"><article class="card span6"><div class="label">Mandatory requirements</div>${s.required.map(r=>`<div class="row" style="margin-top:7px"><span>${esc(r)}</span><span class="status good">MANDATORY</span></div>`).join("")}</article><article class="card span6"><div class="label">Preferred capability</div>${s.preferred.map(r=>`<div class="row" style="margin-top:7px"><span>${esc(r)}</span><span class="status info">PREFERRED</span></div>`).join("")}</article></div><div class="head"><h2>Worker matching</h2></div><div class="list">${S.people.map(p=>{let missing=s.required.filter(r=>!p.creds.some(c=>c.startsWith(r)));let score=matchScore(p,s);return `<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">${missing.length?"Missing: "+esc(missing.join(", ")):"All mandatory requirements satisfied"}</div></div><div class="right"><div class="score">${score}%</div><span class="status ${missing.length?"bad":"good"}">${missing.length?"BLOCKED":"MATCH"}</span></div></div>`}).join("")}</div>`}
+function renderPeople(){
+  const q=(peopleSearch?.value||"").trim().toLowerCase();
+  const haven=S.sites[0];
+  const rows=S.people.map((p,i)=>({p,i})).filter(({p})=>[p.name,p.role,p.experience,...p.credentials.map(c=>c.name)].join(" ").toLowerCase().includes(q));
+  people.innerHTML=rows.map(({p,i})=>{
+    const m=missing(p,haven), s=score(p,haven);
+    return `<div class="card flat">
+      <div class="row stack" style="background:transparent;border:0;padding:0">
+        <div><div class="label">${esc(p.role)}</div><h3>${esc(p.name)}</h3><div class="meta">${esc(p.experience)}</div></div>
+        <div class="right"><div class="score">${s}%</div><span class="status ${m.length?"bad":"good"}">${m.length?"HAVEN BLOCKED":"HAVEN CLEARED"}</span></div>
+      </div>
+      <div class="chips">${p.credentials.map(c=>`<span class="chip">${esc(c.name)} • ${esc(c.status)}${c.expiry?` • exp ${esc(c.expiry)}`:""}</span>`).join("")}</div>
+      ${m.length?`<p class="meta">Missing for Haven House: ${esc(m.join(", "))}</p>`:`<p class="meta goodtxt">All mandatory Haven House requirements satisfied.</p>`}
+      <div class="toolbar"><button class="btn" onclick="openCred(${i})">+ Credential</button></div>
+    </div>`
+  }).join("")||'<div class="empty">No matching workers.</div>';
+}
+function renderSite(){
+  const s=S.sites[siteIx];
+  siteDetail.innerHTML=`<div class="head"><div><div class="label">${esc(s.client)}</div><h2>${esc(s.name)}</h2><div class="sub">${esc(s.kpi)}</div></div></div>
+  <div class="grid">
+    <article class="card span6"><div class="label">Mandatory</div>${s.required.map(r=>`<div class="row" style="margin-top:7px"><span>${esc(r)}</span><span class="status good">REQUIRED</span></div>`).join("")}</article>
+    <article class="card span6"><div class="label">Preferred</div>${s.preferred.map(r=>`<div class="row" style="margin-top:7px"><span>${esc(r)}</span><span class="status info">PREFERRED</span></div>`).join("")}</article>
+  </div>
+  <div class="head"><h2>Worker matching</h2></div>
+  <div class="list">${S.people.map(p=>{const m=missing(p,s), sc=score(p,s);return `<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">${m.length?"Missing: "+esc(m.join(", ")):"All mandatory requirements satisfied"}</div></div><div class="right"><div class="score">${sc}%</div><span class="status ${m.length?"bad":"good"}">${m.length?"BLOCKED":"MATCH"}</span></div></div>`}).join("")}</div>`;
+}
+function renderRoster(){
+  roster.innerHTML=S.roster.map(r=>`<div class="row"><div><strong>${esc(r.site)}</strong><div class="meta">${esc(r.shift)} • ${esc(r.worker)}</div></div><span class="status ${r.status==="Cleared"?"good":"bad"}">${esc(r.status).toUpperCase()}</span></div>`).join("");
+  assignmentLog.innerHTML=S.assignmentLog.slice().reverse().map(a=>`<div class="row"><div><strong>${esc(a.worker)} → ${esc(a.site)}</strong><div class="meta">${esc(a.reason)}</div></div><span class="status ${a.result==="Assigned"?"good":"bad"}">${esc(a.result).toUpperCase()}</span></div>`).join("")||'<div class="notice">No assignment attempts yet.</div>';
+}
+
+
+
+const industryPacks={
+  "Security":{unit:"Site",requirements:["Security Licence","First Aid","Site Induction"],examples:["Patrol Report","Incident Report","Key Register"]},
+  "Cleaning":{unit:"Location",requirements:["Site Induction","Chemical/SDS Training","Equipment Competency"],examples:["Cleaning Quality Check","Chemical Register","Area Checklist"]},
+  "Community Services":{unit:"Service Location",requirements:["Organisation Induction","Safeguarding Training","Role Competency"],examples:["Welfare Check","Handover","Safeguarding Report"]},
+  "Logistics":{unit:"Depot",requirements:["Site Induction","Relevant Licence/Ticket","Fatigue Compliance"],examples:["Vehicle Inspection","Loading Check","Access Record"]},
+  "Tourism":{unit:"Tour / Location",requirements:["Guide Competency","First Aid","Location Induction"],examples:["Tour Manifest","Vehicle Check","Guest Incident"]},
+  "Facilities":{unit:"Facility",requirements:["Induction","Trade/Role Competency","Permit Requirement"],examples:["Asset Inspection","Work Order","Contractor Check"]},
+  "Professional Services":{unit:"Project",requirements:["Organisation Induction","Role Competency","Project Access"],examples:["Project Handover","Approval Form","Client Request"]},
+  "Build My Own":{unit:"Operational Unit",requirements:["Customer-defined requirement"],examples:["Custom Form","Custom Workflow","Custom Compliance Check"]}
+};
+const moduleList=[
+["COMMAND","Dashboards, alerts, KPIs and operating picture"],["PEOPLE","HR records, onboarding, employment and capability"],
+["CAPABILITY","Qualifications, skills, experience and talent matching"],["ROSTER","Availability, assignment, readiness and coverage"],
+["TIME","Attendance, breaks, actual hours and approvals"],["PAY RIGHT","Expected pay, reconciliation and payroll assurance"],
+["OPERATIONS","Clients, operational units, duties, tasks and handovers"],["REPORT","Incidents, hazards, maintenance, welfare and custom reports"],
+["CLIENT","Client requirements, KPIs, portal and authorised visibility"],["COMPLY","Requirements, evidence, audits, gaps and corrective action"],
+["LEARN","In-house training, recurrence, assessments and competency"],["ASSETS","Keys, vehicles, equipment, uniforms and inspections"],
+["ACTIONS","Investigations, corrective actions and continuous improvement"],["DOCUMENTS","Policies, SOPs, versions and acknowledgements"],
+["COMMERCIAL","Contracts, scopes, service obligations and client structure"],["ANALYTICS","Trends, staffing, incidents, cost and compliance"],
+["BUILDER","Forms, workflows, dashboards, rules and site/client configuration"],["INTEGRATIONS","API-first connection to payroll, finance, identity and communications"]
+];
+function chooseIndustry(n,btn){
+  S.selectedIndustry=n;save();
+  document.querySelectorAll(".industryBtn").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");
+  S.activity.unshift(`${n} industry configuration selected`);
+  renderPlatform();
+}
+function renderPlatform(){
+  if(!document.getElementById("moduleGrid"))return;
+  moduleGrid.innerHTML=moduleList.map(([n,d])=>`<div class="moduleTile"><strong>${n}</strong><small>${d}</small></div>`).join("");
+  industryPackGrid.innerHTML=Object.entries(industryPacks).map(([n,p])=>`<button class="industryBtn ${S.selectedIndustry===n?"active":""}" onclick="chooseIndustry('${n.replace(/'/g,"\\'")}',this)"><strong>${esc(n)}</strong><small>${esc(p.unit)} • ${esc(p.requirements.join(" • "))}</small></button>`).join("");
+}
+function renderHub(){
+  if(!document.getElementById("documents"))return;
+  documents.innerHTML=S.documents.map((d,i)=>`<div class="row"><div><strong>${esc(d.name)}</strong><div class="meta"><span class="docVersion">${esc(d.version)}</span> • ${d.ack}/${d.total} acknowledged</div></div><span class="status ${d.ack===d.total?"good":"warn"}">${esc(d.status)}</span></div>`).join("");
+  assets.innerHTML=S.assets.map(a=>`<div class="row"><div><strong>${esc(a.name)}</strong><div class="meta">${esc(a.type)} • ${esc(a.assigned)}</div></div><span class="status ${a.status==="Inspection due"?"warn":"good"}">${esc(a.status)}</span></div>`).join("");
+  leaveList.innerHTML=S.leave.map(x=>`<div class="row"><div><strong>${esc(x.name)}</strong><div class="meta">${esc(x.type)} • ${esc(x.period)}</div></div><span class="status ${x.status==="Available"?"good":"info"}">${esc(x.status)}</span></div>`).join("");
+  notifications.innerHTML=S.notifications.map(n=>`<div class="row"><div><strong>${n.read?"":"● "}${esc(n.text)}</strong><div class="meta">${n.read?"Read":"Requires attention"}</div></div><span class="status ${n.read?"good":"warn"}">${n.read?"READ":"NEW"}</span></div>`).join("")||'<div class="notice">No notifications.</div>';
+  notifCount.textContent=S.notifications.filter(n=>!n.read).length;
+  const haven=S.sites[0],ready=S.people.filter(p=>cleared(p,haven)).length/S.people.length*100;
+  const trained=S.people.filter(p=>p.training).length/S.people.length*100;
+  anReady.textContent=Math.round(ready)+"%";anTrain.textContent=Math.round(trained)+"%";anActions.textContent=S.actions.filter(a=>a.status==="Open").length;anForms.textContent=S.customForms.length;
+}
+function releaseDocument(){
+  const d=S.documents[0];const major=parseInt((d.version.match(/\d+/)||["3"])[0])+1;d.version=`v${major}.0`;d.ack=0;d.status="Current";
+  S.notifications.unshift({text:`${d.name} ${d.version} released — acknowledgement required`,read:false});
+  S.activity.unshift(`${d.name} ${d.version} released`);
+  save();render();
+}
+function addAsset(){
+  S.assets.push({name:`Demo Asset ${S.assets.length+1}`,type:"Equipment",assigned:"Unassigned",status:"Available"});
+  S.activity.unshift("Demo asset added to asset register");save();render();
+}
+function clearNotifications(){S.notifications.forEach(n=>n.read=true);save();render()}
+
+const talentMandatoryOptions=["Security Licence","First Aid","Haven House Site Induction","Training Qualification"];
+const talentPreferredOptions=["Mental Health First Aid","De-escalation","Supervision","Training","Logistics","Community Services","Client Liaison","Customer Service"];
+let talentMandatorySelected=["Security Licence","First Aid"],talentPreferredSelected=["Mental Health First Aid","De-escalation"];
+function hasCapability(p,n){return !!cred(p,n)||(p.capabilities||[]).some(x=>x.toLowerCase()===n.toLowerCase())||p.role.toLowerCase().includes(n.toLowerCase())||p.experience.toLowerCase().includes(n.toLowerCase())}
+function talentToggle(kind,n,on){let a=kind==="mandatory"?talentMandatorySelected:talentPreferredSelected;if(on&&!a.includes(n))a.push(n);if(!on){let i=a.indexOf(n);if(i>=0)a.splice(i,1)}renderTalent()}
+function talentMatch(p){let mp=talentMandatorySelected.filter(x=>hasCapability(p,x)),mm=talentMandatorySelected.filter(x=>!hasCapability(p,x)),pp=talentPreferredSelected.filter(x=>hasCapability(p,x));let ms=talentMandatorySelected.length?mp.length/talentMandatorySelected.length:1,ps=talentPreferredSelected.length?pp.length/talentPreferredSelected.length:1;return{mp,mm,pp,score:Math.round(ms*80+ps*20),cleared:mm.length===0}}
+function renderTalent(){
+ if(!document.getElementById("talentResults"))return;
+ mandatoryFilters.innerHTML=talentMandatoryOptions.map(x=>`<label class="reqToggle"><input type="checkbox" ${talentMandatorySelected.includes(x)?"checked":""} onchange="talentToggle('mandatory','${x}',this.checked)"> ${esc(x)}</label>`).join("");
+ preferredFilters.innerHTML=talentPreferredOptions.map(x=>`<label class="reqToggle"><input type="checkbox" ${talentPreferredSelected.includes(x)?"checked":""} onchange="talentToggle('preferred','${x}',this.checked)"> ${esc(x)}</label>`).join("");
+ let q=(talentSearch?.value||"").trim().toLowerCase(),av=talentAvailability?.value||"all",rd=talentReadiness?.value||"all";
+ let r=S.people.map((p,i)=>({p,i,m:talentMatch(p)})).filter(o=>{let h=[o.p.name,o.p.role,o.p.experience,...(o.p.capabilities||[]),...o.p.credentials.map(c=>c.name)].join(" ").toLowerCase();return(!q||h.includes(q))&&(av!=="available"||o.p.available)&&(rd==="all"||(rd==="cleared"&&o.m.cleared)||(rd==="blocked"&&!o.m.cleared))}).sort((a,b)=>b.m.score-a.m.score||Number(b.p.available)-Number(a.p.available));
+ talentSummary.textContent=`${r.length} of ${S.people.length} people shown`;
+ talentResults.innerHTML=r.map(o=>`<article class="card flat"><div class="row stack" style="background:transparent;border:0;padding:0"><div><div class="label">${esc(o.p.role)} • ${o.p.available?"AVAILABLE":"UNAVAILABLE"}</div><h3>${esc(o.p.name)}</h3><div class="meta">${esc(o.p.experience)}</div></div><div class="right"><div class="score">${o.m.score}%</div><span class="status ${o.m.cleared?"good":"bad"}">${o.m.cleared?"MANDATORY PASS":"MANDATORY GAP"}</span></div></div><div class="matchbar"><i style="width:${o.m.score}%"></i></div><div class="chips">${[...(o.p.capabilities||[]),...o.p.credentials.filter(c=>c.status==="Verified").map(c=>c.name)].map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div><p class="meta"><strong>Passed:</strong> ${esc(o.m.mp.join(", ")||"None")}<br><strong>Missing:</strong> ${esc(o.m.mm.join(", ")||"None")}<br><strong>Preferred:</strong> ${esc(o.m.pp.join(", ")||"None")}</p><div class="toolbar"><button class="btn" onclick="toggleAvailability(${o.i})">${o.p.available?"Mark unavailable":"Mark available"}</button>${o.m.cleared?`<button class="btn good" onclick="talentShortlist(${o.i})">Shortlist</button>`:""}</div></article>`).join("")||'<div class="notice">No workers match the current filters.</div>';
+ let c={};S.people.forEach(p=>[...(p.capabilities||[]),...p.credentials.filter(x=>x.status==="Verified").map(x=>x.name)].forEach(x=>c[x]=(c[x]||0)+1));
+ capabilityMap.innerHTML=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([n,v])=>`<article class="card span3"><div class="label">${esc(n)}</div><div class="metric">${v}</div><p class="muted">people</p></article>`).join("");
+}
+function toggleAvailability(i){S.people[i].available=!S.people[i].available;S.activity.unshift(`${S.people[i].name} marked ${S.people[i].available?"available":"unavailable"}`);save();render()}
+function talentShortlist(i){let p=S.people[i],m=talentMatch(p);S.activity.unshift(`${p.name} shortlisted at ${m.score}% capability match`);save();render();alert(`${p.name} shortlisted at ${m.score}% match.`)}
+
+function renderBuilder(){
+  if(!document.getElementById("customForms"))return;
+  customForms.innerHTML=S.customForms.map((f,i)=>`<div class="card flat">
+    <div class="row stack" style="background:transparent;border:0;padding:0">
+      <div><div class="label">${esc(f.industry)} • ${esc(f.scope)}</div><h3>${esc(f.name)}</h3><div class="meta">${f.fields.length} configured fields</div></div>
+      <span class="status good">ACTIVE</span>
+    </div>
+    <div class="chips">${f.fields.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div>
+    ${f.trigger?`<div class="notice" style="margin-top:9px"><strong>WHEN</strong> ${esc(f.trigger)}<br><strong>THEN</strong> ${esc(f.action||"No automated action")}</div>`:""}
+    <div class="toolbar" style="margin-top:9px"><button class="btn" onclick="previewForm(${i})">Preview</button><button class="btn bad" onclick="deleteForm(${i})">Delete</button></div>
+  </div>`).join("")||'<div class="notice">No custom forms yet.</div>';
+  workflowRules.innerHTML=S.workflowRules.map(r=>`<div class="row stack"><div><strong>${esc(r.name)}</strong><div class="meta">${esc(r.scope)}<br>WHEN ${esc(r.when)} → THEN ${esc(r.then)}</div></div><span class="status info">RULE</span></div>`).join("");
+}
+function loadTemplate(name){
+  bfName.value=name;bfIndustry.value="Security";bfScope.value="Haven House";
+  bfFields.value="Inspection area\nCondition\nIssue found\nPhoto required\nNotes";
+  bfTrigger.value="Issue found = Yes";bfAction.value="Create corrective action + notify supervisor";
+  builderDlg.showModal();
+}
+function previewForm(i){
+  const f=S.customForms[i];
+  alert(`${f.name}\n\nScope: ${f.scope}\n\nFields:\n• ${f.fields.join("\n• ")}${f.trigger?`\n\nWHEN ${f.trigger}\nTHEN ${f.action}`:""}`);
+}
+function deleteForm(i){
+  const n=S.customForms[i].name;S.customForms.splice(i,1);S.activity.unshift(`${n} removed from GENESIS Builder demo`);save();render();
+}
+
 function selectSite(i,btn){siteIx=i;document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("primary"));btn.classList.add("primary");renderSite()}
-function openPerson(){personDlg.showModal()} function openCred(i){ci.value=i;credDlg.showModal()}
-personForm.onsubmit=e=>{e.preventDefault();S.people.push({name:pn.value.trim(),role:pr.value.trim(),creds:[],training:false});save();personDlg.close();personForm.reset();render()}
-credForm.onsubmit=e=>{e.preventDefault();let p=S.people[+ci.value],n=cn.value.trim();p.creds.push(ce.value?`${n} • exp ${ce.value}`:n);save();credDlg.close();credForm.reset();render()}
-shiftForm.onsubmit=e=>{e.preventDefault();S.shifts.unshift({site:ss.value.trim(),hours:+sh.value});save();shiftDlg.close();shiftForm.reset();sh.value=8;render()}
-incidentForm.onsubmit=e=>{e.preventDefault();const sev=iv.value;const item={id:Date.now(),site:is.value,type:it.value.trim(),severity:sev,summary:iu.value.trim(),status:"Open"};S.incidents.unshift(item);if(sev==="High"||sev==="Critical")S.actions.unshift({id:Date.now()+1,title:`Investigate ${item.type}`,site:item.site,owner:"Operations",status:"Open"});save();incidentDlg.close();incidentForm.reset();render()}
-function completeCasey(){let p=S.people.find(x=>x.name==="Casey Brown");if(!p)return;if(!p.creds.includes("Haven House Site Induction"))p.creds.push("Haven House Site Induction");p.training=true;save();render()}
-function closeAction(i){S.actions[i].status=S.actions[i].status==="Open"?"Closed":"Open";save();render()}
+function openCred(i){ci.value=i;credDlg.showModal()}
+
+
+builderForm.onsubmit=e=>{
+  e.preventDefault();
+  const f={name:bfName.value.trim(),industry:bfIndustry.value,scope:bfScope.value,
+    fields:bfFields.value.split("\n").map(x=>x.trim()).filter(Boolean),
+    trigger:bfTrigger.value.trim(),action:bfAction.value.trim()};
+  S.customForms.unshift(f);
+  if(f.trigger&&f.action)S.workflowRules.unshift({name:`${f.name} automation`,scope:f.scope,when:f.trigger,then:f.action});
+  S.activity.unshift(`${f.name} created in GENESIS Builder for ${f.scope}`);
+  save();builderDlg.close();builderForm.reset();render();view("builder");
+}
+
+personForm.onsubmit=e=>{e.preventDefault();S.people.push({name:pn.value.trim(),role:pr.value.trim(),experience:pe.value.trim(),available:true,capabilities:[],credentials:[],training:false});S.activity.unshift(`${pn.value.trim()} added to workforce`);save();personDlg.close();personForm.reset();render()}
+credForm.onsubmit=e=>{e.preventDefault();const p=S.people[+ci.value], name=cn.value.trim();p.credentials.push({name,status:cv.value,expiry:ce.value});S.activity.unshift(`${name} added to ${p.name}`);save();credDlg.close();credForm.reset();render()}
+assignForm.onsubmit=e=>{e.preventDefault();const site=S.sites[+as.value], p=S.people[+aw.value], m=missing(p,site);if(m.length){S.assignmentLog.push({worker:p.name,site:site.name,result:"Blocked",reason:"Missing mandatory: "+m.join(", ")});S.activity.unshift(`${p.name} blocked from ${site.name}`)}else{S.roster.push({site:site.name,worker:p.name,shift:at.value,status:"Cleared"});S.assignmentLog.push({worker:p.name,site:site.name,result:"Assigned",reason:"All mandatory requirements passed"});S.activity.unshift(`${p.name} assigned to ${site.name}`)}save();assignDlg.close();render();view("roster")}
+incidentForm.onsubmit=e=>{e.preventDefault();const item={id:Date.now(),site:is.value,type:it.value.trim(),severity:iv.value,summary:iu.value.trim(),status:"Open",clientVisible:clientVisible.checked};S.incidents.unshift(item);if(["High","Critical"].includes(item.severity))S.actions.unshift({id:Date.now()+1,title:`Investigate ${item.type}`,site:item.site,owner:"Operations",status:"Open"});S.activity.unshift(`${item.severity} incident created at ${item.site}`);save();incidentDlg.close();incidentForm.reset();render()}
+shiftForm.onsubmit=e=>{e.preventDefault();S.shifts.unshift({site:ss.value.trim(),hours:+sh.value,note:sn.value.trim()});S.activity.unshift(`Work record added for ${ss.value.trim()}`);save();shiftDlg.close();shiftForm.reset();sh.value=8;render()}
+function completeCasey(){const p=S.people.find(x=>x.name==="Casey Brown");if(!p)return;if(!p.credentials.find(c=>c.name==="Haven House Site Induction"))p.credentials.push({name:"Haven House Site Induction",status:"Verified",expiry:""});p.training=true;S.activity.unshift("Casey Brown completed Haven House Site Induction and clearance recalculated");save();render()}
+function toggleAction(i){S.actions[i].status=S.actions[i].status==="Open"?"Closed":"Open";S.activity.unshift(`${S.actions[i].title} marked ${S.actions[i].status}`);save();render()}
 function resetDemo(){S=clone(seed);save();render();view(role==="Client"?"more":"command")}
-renderRole();render();
+if(currentUser&&TEST_ACCOUNTS[currentUser]){applyLogin(currentUser)}else{loginScreen.classList.remove("hidden");appShell.classList.add("hidden");nav.classList.add("hidden")}
 if("serviceWorker"in navigator)navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
-</script></body></html>
+</script>
+</body>
+</html>

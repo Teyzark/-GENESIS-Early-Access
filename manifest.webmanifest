@@ -1,11 +1,11 @@
 {
-  "name": "SPECTRE NEXUS | GENESIS Early Access",
+  "name": "SPECTRE NEXUS | GENESIS Early Access v0.2.5 FULL PLATFORM",
   "short_name": "GENESIS",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#07090d",
-  "theme_color": "#080b10",
-  "description": "GENESIS Early Access",
+  "theme_color": "#07090d",
+  "description": "Full GENESIS early-access platform preview: multi-industry workforce, operations, compliance, assurance, Builder, Learn and Pay Right.",
   "icons": [
     {
       "src": "icon.svg",
