@@ -4,8 +4,8 @@
   "start_url": "./",
   "display": "standalone",
   "background_color": "#07090d",
-  "theme_color": "#0a0d12",
-  "description": "GENESIS Early Access \u2014 workforce, capability, compliance and training.",
+  "theme_color": "#080b10",
+  "description": "GENESIS Early Access",
   "icons": [
     {
       "src": "icon.svg",
