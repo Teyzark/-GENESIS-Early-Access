@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0d12" />
+  <meta name="description" content="SPECTRE NEXUS | GENESIS Early Access" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>SPECTRE NEXUS | GENESIS Early Access</title>
+  <style>
+    :root{
+      --bg:#07090d;--panel:#11151c;--panel2:#171c25;--text:#f2f5f7;--muted:#9da8b5;
+      --line:#2a313c;--accent:#d9e1ea;--good:#4fd1a1;--warn:#f4c95d;--bad:#ff7676;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{margin:0;min-height:100%;background:linear-gradient(180deg,#090c11 0%,#07090d 100%)}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    .app{max-width:1100px;margin:auto;padding:18px 14px 88px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand small{display:block;color:var(--muted);letter-spacing:.14em;font-size:11px}
+    .brand strong{font-size:20px;letter-spacing:.08em}
+    .badge{border:1px solid var(--line);padding:6px 9px;border-radius:999px;color:var(--muted);font-size:12px}
+    .hero{padding:28px 4px 18px}
+    .hero h1{font-size:clamp(34px,10vw,72px);margin:0;letter-spacing:-.03em;line-height:.95}
+    .hero p{color:var(--muted);font-size:17px;max-width:700px;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .card{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+    .card h2,.card h3{margin:0 0 8px}
+    .card p{color:var(--muted);line-height:1.45}
+    .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .btn{appearance:none;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:12px 14px;border-radius:12px;min-height:44px;font-weight:700}
+    .btn.primary{background:var(--text);color:#0b0d11;border-color:var(--text)}
+    .btn.ghost{background:transparent}
+    .btn.danger{border-color:#633;color:#ffc2c2}
+    .btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #7f8fa4;outline-offset:2px}
+    .metric{font-size:30px;font-weight:800}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .status{display:inline-flex;align-items:center;gap:6px;font-size:12px;border-radius:999px;padding:5px 8px;border:1px solid var(--line)}
+    .status.good{color:var(--good)}.status.warn{color:var(--warn)}.status.bad{color:var(--bad)}
+    .list{display:grid;gap:8px}.row{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .row .meta{color:var(--muted);font-size:13px;margin-top:3px}
+    .row .right{text-align:right}
+    .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:18px 0 10px}
+    .section-head h2{margin:0;font-size:20px}
+    .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(7,9,13,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:20}
+    .nav-inner{width:min(100%,700px);display:grid;grid-template-columns:repeat(5,1fr);padding:8px}
+    .nav button{border:0;background:transparent;color:var(--muted);padding:10px 4px;border-radius:10px;font-size:12px}
+    .nav button.active{background:var(--panel2);color:var(--text)}
+    .hidden{display:none!important}
+    .form{display:grid;gap:10px}.field{display:grid;gap:6px}.field label{font-size:13px;color:var(--muted)}
+    input,textarea,select{width:100%;background:#0c1016;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;min-height:44px;font-size:16px}
+    textarea{min-height:90px;resize:vertical}
+    dialog{width:min(92vw,560px);background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:0}
+    dialog::backdrop{background:rgba(0,0,0,.65)}
+    .modal{padding:16px}
+    .modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .modal-head h3{margin:0}.close{border:0;background:transparent;color:var(--muted);font-size:24px;min-width:44px;min-height:44px}
+    .notice{padding:12px;border:1px solid var(--line);border-radius:12px;background:#0d1219;color:var(--muted);font-size:13px}
+    .progress{height:8px;border-radius:999px;background:#0c1016;overflow:hidden;border:1px solid var(--line)} .progress i{display:block;height:100%;background:var(--good)}
+    .empty{padding:24px;text-align:center;color:var(--muted)}
+    .tiny{font-size:12px;color:var(--muted)}
+    @media(min-width:700px){.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.app{padding:24px 24px 96px}}
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand"><small>SPECTRE NEXUS</small><strong>GENESIS</strong></div>
+    <div class="badge" id="modeBadge">EARLY ACCESS v0.1</div>
+  </header>
+
+  <main id="landing">
+    <section class="hero">
+      <div class="tiny">WORKFORCE • OPERATIONS • COMPLIANCE • ASSURANCE</div>
+      <h1>Know your workforce.<br>Prove your readiness.</h1>
+      <p>GENESIS Early Access gives workers and small businesses one place to track qualifications, capability, training, work history and compliance readiness.</p>
+      <div class="cta">
+        <button class="btn primary" data-start="demo">Explore live demo</button>
+        <button class="btn" data-start="worker">Start as a worker</button>
+        <button class="btn ghost" data-start="business">Small business preview</button>
+      </div>
+    </section>
+    <section class="grid">
+      <article class="card span4"><div class="label">Individuals</div><h2>Keep your capability together</h2><p>Record qualifications, expiry dates, training, skills and work history from your phone.</p></article>
+      <article class="card span4"><div class="label">Small business</div><h2>See who is ready</h2><p>Track worker evidence and identify missing or expiring requirements without another spreadsheet.</p></article>
+      <article class="card span4"><div class="label">Try before buying</div><h2>Explore GENESIS</h2><p>Use the synthetic Aegis Mock Services workspace and see how the platform works before committing.</p></article>
+    </section>
+  </main>
+
+  <main id="workspace" class="hidden">
+    <section id="view-command" class="view">
+      <div class="section-head"><div><div class="tiny" id="orgLabel">AEGIS MOCK SERVICES</div><h2>Command</h2></div><span class="status good">● Demo active</span></div>
+      <div class="grid">
+        <article class="card span4"><div class="label">Workers</div><div class="metric" id="workerCount">4</div><p>Active capability profiles</p></article>
+        <article class="card span4"><div class="label">Compliance</div><div class="metric" id="compliancePct">75%</div><p>Workers currently cleared</p></article>
+        <article class="card span4"><div class="label">Open warnings</div><div class="metric" id="warningCount">2</div><p>Action before assignment</p></article>
+      </div>
+      <div class="section-head"><h2>Readiness</h2><button class="btn" id="addCredentialQuick">Add qualification</button></div>
+      <div class="list" id="readinessList"></div>
+      <div class="section-head"><h2>Today</h2></div>
+      <div class="list">
+        <div class="row"><div><strong>Haven House</strong><div class="meta">18:00–06:00 • Alex Morgan</div></div><span class="status good">CLEARED</span></div>
+        <div class="row"><div><strong>NLT Gatehouse</strong><div class="meta">19:00–07:00 • Taylor Singh</div></div><span class="status warn">CHECK FIRST AID</span></div>
+      </div>
+    </section>
+
+    <section id="view-people" class="view hidden">
+      <div class="section-head"><div><div class="tiny">WORKFORCE</div><h2>People & Capability</h2></div><button class="btn primary" id="addPersonBtn">Add person</button></div>
+      <div class="list" id="peopleList"></div>
+    </section>
+
+    <section id="view-learn" class="view hidden">
+      <div class="section-head"><div><div class="tiny">GENESIS LEARN</div><h2>Training</h2></div><button class="btn primary" id="completeCourseBtn">Complete demo course</button></div>
+      <article class="card">
+        <div class="label">Mandatory • Haven House</div>
+        <h2>De-escalation Refresher</h2>
+        <p>Annual client/site refresher. Demo completion updates the selected worker's capability and clearance record.</p>
+        <div class="progress"><i id="trainingProgress" style="width:25%"></i></div>
+        <p class="tiny" id="trainingText">1 of 4 demo workers complete</p>
+      </article>
+      <div class="section-head"><h2>Assignments</h2></div>
+      <div class="list" id="trainingList"></div>
+    </section>
+
+    <section id="view-work" class="view hidden">
+      <div class="section-head"><div><div class="tiny">WORK LOG</div><h2>Shifts & Hours</h2></div><button class="btn primary" id="addShiftBtn">Log shift</button></div>
+      <div class="grid">
+        <article class="card span6"><div class="label">Recorded hours</div><div class="metric" id="hoursTotal">25.25</div><p>Demo actual hours</p></article>
+        <article class="card span6"><div class="label">Hours variance</div><div class="metric">+0.25</div><p>Rostered 65.00 → actual 65.25 in regression example</p></article>
+      </div>
+      <div class="section-head"><h2>Recent work</h2></div>
+      <div class="list" id="shiftList"></div>
+    </section>
+
+    <section id="view-profile" class="view hidden">
+      <div class="section-head"><div><div class="tiny">MY GENESIS</div><h2>Early Access</h2></div></div>
+      <article class="card">
+        <h2>What this build proves</h2>
+        <p>This v0.1 is deliberately small: mobile shell, worker profiles, qualifications, capability/compliance status, training completion and shift logging.</p>
+        <div class="notice">This prototype stores changes only in this browser session. Do not enter sensitive or real employee information yet.</div>
+      </article>
+      <div class="section-head"><h2>Next release</h2></div>
+      <div class="list">
+        <div class="row"><div><strong>Real account login</strong><div class="meta">Supabase authentication + tenant isolation</div></div><span class="status warn">NEXT</span></div>
+        <div class="row"><div><strong>Micro business workspace</strong><div class="meta">Clients, sites, requirements and invitations</div></div><span class="status warn">NEXT</span></div>
+        <div class="row"><div><strong>Public beta billing</strong><div class="meta">Only after account/payment setup is ready</div></div><span class="status">PLANNED</span></div>
+      </div>
+      <div class="cta"><button class="btn danger" id="resetBtn">Reset demo data</button><button class="btn ghost" id="exitBtn">Back to landing</button></div>
+    </section>
+  </main>
+</div>
+
+<nav class="nav hidden" id="bottomNav" aria-label="GENESIS navigation">
+  <div class="nav-inner">
+    <button data-view="command" class="active">Command</button>
+    <button data-view="people">People</button>
+    <button data-view="learn">Learn</button>
+    <button data-view="work">Work</button>
+    <button data-view="profile">More</button>
+  </div>
+</nav>
+
+<dialog id="personDialog">
+  <form method="dialog" class="modal" id="personForm">
+    <div class="modal-head"><h3>Add demo person</h3><button class="close" value="cancel" aria-label="Close">×</button></div>
+    <div class="form">
+      <div class="field"><label for="pname">Name</label><input id="pname" required maxlength="80" placeholder="e.g. Jordan Lee"></div>
+      <div class="field"><label for="prole">Role</label><input id="prole" required maxlength="80" placeholder="e.g. Security Officer"></div>
+      <div class="field"><label for="pstatus">Readiness</label><select id="pstatus"><option value="good">Cleared</option><option value="warn">Warning</option><option value="bad">Not cleared</option></select></div>
+      <button class="btn primary" value="default">Add person</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="credentialDialog">
+  <form method="dialog" class="modal" id="credentialForm">
+    <div class="modal-head"><h3>Add qualification</h3><button class="close" value="cancel" aria-label="Close">×</button></div>
+    <div class="form">
+      <div class="field"><label for="workerSelect">Worker</label><select id="workerSelect"></select></div>
+      <div class="field"><label for="credentialName">Qualification / credential</label><input id="credentialName" required maxlength="100" placeholder="e.g. First Aid"></div>
+      <div class="field"><label for="credentialExpiry">Expiry date</label><input id="credentialExpiry" type="date"></div>
+      <button class="btn primary" value="default">Save qualification</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="shiftDialog">
+  <form method="dialog" class="modal" id="shiftForm">
+    <div class="modal-head"><h3>Log work</h3><button class="close" value="cancel" aria-label="Close">×</button></div>
+    <div class="form">
+      <div class="field"><label for="shiftSite">Site / workplace</label><input id="shiftSite" required maxlength="100" placeholder="e.g. Haven House"></div>
+      <div class="field"><label for="shiftHours">Actual hours</label><input id="shiftHours" type="number" min="0" max="24" step="0.25" value="8" required></div>
+      <div class="field"><label for="shiftNote">Note</label><textarea id="shiftNote" maxlength="300" placeholder="Optional"></textarea></div>
+      <button class="btn primary" value="default">Add work record</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+  const seed = {
+    people: [
+      {name:"Alex Morgan",role:"Security Officer",status:"good",credentials:["Security Licence","First Aid","Mental Health First Aid","Haven Induction"],training:true},
+      {name:"Taylor Singh",role:"Security Officer",status:"warn",credentials:["Security Licence","First Aid — expiring soon"],training:false},
+      {name:"Morgan Lee",role:"Supervisor",status:"good",credentials:["Security Licence","First Aid","Training Qualification"],training:true},
+      {name:"Casey Brown",role:"Security Officer",status:"bad",credentials:["Security Licence","First Aid"],training:false}
+    ],
+    shifts:[
+      {site:"Haven House",hours:12.25,note:"18:00–06:15 • late finish recorded"},
+      {site:"NLT Gatehouse",hours:13,note:"Sunday shift"}
+    ]
+  };
+  let state = JSON.parse(JSON.stringify(seed));
+  let currentMode = "demo";
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  function start(mode){
+    currentMode = mode;
+    $("#landing").classList.add("hidden");
+    $("#workspace").classList.remove("hidden");
+    $("#bottomNav").classList.remove("hidden");
+    $("#modeBadge").textContent = mode === "demo" ? "DEMO WORKSPACE" : mode === "worker" ? "WORKER EARLY ACCESS" : "BUSINESS PREVIEW";
+    $("#orgLabel").textContent = mode === "worker" ? "PERSONAL WORKSPACE" : mode === "business" ? "MICRO BUSINESS PREVIEW" : "AEGIS MOCK SERVICES";
+    render();
+    showView(mode === "worker" ? "people" : "command");
+  }
+
+  function showView(name){
+    $$(".view").forEach(v=>v.classList.add("hidden"));
+    $("#view-"+name).classList.remove("hidden");
+    $$("#bottomNav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function labelFor(status){ return status==="good"?"CLEARED":status==="warn"?"WARNING":"NOT CLEARED"; }
+
+  function render(){
+    $("#workerCount").textContent=state.people.length;
+    const cleared=state.people.filter(p=>p.status==="good").length;
+    $("#compliancePct").textContent=state.people.length ? Math.round(cleared/state.people.length*100)+"%" : "—";
+    $("#warningCount").textContent=state.people.filter(p=>p.status!=="good").length;
+    $("#readinessList").innerHTML = state.people.map(p=>`
+      <div class="row">
+        <div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.role)} • ${p.credentials.length} recorded capabilities</div></div>
+        <span class="status ${p.status}">${labelFor(p.status)}</span>
+      </div>`).join("") || '<div class="empty">No workers yet.</div>';
+    $("#peopleList").innerHTML = state.people.map((p,i)=>`
+      <div class="row">
+        <div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.role)}<br>${esc(p.credentials.join(" • ")) || "No credentials yet"}</div></div>
+        <div class="right"><span class="status ${p.status}">${labelFor(p.status)}</span><div style="margin-top:8px"><button class="btn" data-credential-for="${i}">+ Qualification</button></div></div>
+      </div>`).join("") || '<div class="empty">Add your first person.</div>';
+    $("#workerSelect").innerHTML = state.people.map((p,i)=>`<option value="${i}">${esc(p.name)}</option>`).join("");
+    const complete=state.people.filter(p=>p.training).length;
+    const pct=state.people.length?Math.round(complete/state.people.length*100):0;
+    $("#trainingProgress").style.width=pct+"%";
+    $("#trainingText").textContent=`${complete} of ${state.people.length} demo workers complete`;
+    $("#trainingList").innerHTML=state.people.map(p=>`<div class="row"><div><strong>${esc(p.name)}</strong><div class="meta">De-escalation Refresher</div></div><span class="status ${p.training?"good":"warn"}">${p.training?"COMPLETE":"ASSIGNED"}</span></div>`).join("");
+    $("#shiftList").innerHTML=state.shifts.map(s=>`<div class="row"><div><strong>${esc(s.site)}</strong><div class="meta">${esc(s.note||"Work record")}</div></div><div class="right"><strong>${Number(s.hours).toFixed(2)}h</strong></div></div>`).join("") || '<div class="empty">No work records yet.</div>';
+    $("#hoursTotal").textContent=state.shifts.reduce((a,s)=>a+Number(s.hours||0),0).toFixed(2);
+    $$("[data-credential-for]").forEach(btn=>btn.addEventListener("click",()=>openCredential(Number(btn.dataset.credentialFor))));
+  }
+
+  function openCredential(index){
+    if(!state.people.length){ alert("Add a person first."); return; }
+    $("#workerSelect").value=String(index ?? 0);
+    $("#credentialDialog").showModal();
+  }
+
+  $$("[data-start]").forEach(b=>b.addEventListener("click",()=>start(b.dataset.start)));
+  $$("#bottomNav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+  $("#addPersonBtn").addEventListener("click",()=>$("#personDialog").showModal());
+  $("#addCredentialQuick").addEventListener("click",()=>openCredential(0));
+  $("#addShiftBtn").addEventListener("click",()=>$("#shiftDialog").showModal());
+
+  $("#personForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const name=$("#pname").value.trim(), role=$("#prole").value.trim(), status=$("#pstatus").value;
+    if(!name||!role)return;
+    state.people.push({name,role,status,credentials:[],training:false});
+    $("#personDialog").close(); e.target.reset(); render();
+  });
+
+  $("#credentialForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const i=Number($("#workerSelect").value), name=$("#credentialName").value.trim(), expiry=$("#credentialExpiry").value;
+    if(!state.people[i]||!name)return;
+    state.people[i].credentials.push(expiry?`${name} • exp ${expiry}`:name);
+    if(state.people[i].status==="bad" && /induction/i.test(name)) state.people[i].status="good";
+    $("#credentialDialog").close(); e.target.reset(); render();
+  });
+
+  $("#shiftForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const site=$("#shiftSite").value.trim(), hours=Math.max(0,Math.min(24,Number($("#shiftHours").value))), note=$("#shiftNote").value.trim();
+    if(!site||!Number.isFinite(hours))return;
+    state.shifts.unshift({site,hours,note});
+    $("#shiftDialog").close(); e.target.reset(); $("#shiftHours").value="8"; render();
+  });
+
+  $("#completeCourseBtn").addEventListener("click",()=>{
+    const person=state.people.find(p=>!p.training);
+    if(!person){ alert("All demo workers have completed this course."); return; }
+    person.training=true;
+    if(person.name==="Casey Brown"){
+      person.credentials.push("Haven De-escalation Refresher");
+    }
+    render();
+  });
+
+  $("#resetBtn").addEventListener("click",()=>{state=JSON.parse(JSON.stringify(seed));render();showView("command");});
+  $("#exitBtn").addEventListener("click",()=>{ $("#workspace").classList.add("hidden");$("#bottomNav").classList.add("hidden");$("#landing").classList.remove("hidden");window.scrollTo(0,0);});
+
+  if("serviceWorker" in navigator){ navigator.serviceWorker.register("./service-worker.js").catch(()=>{}); }
+})();
+</script>
+</body>
+</html>

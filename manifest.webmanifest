@@ -1,0 +1,17 @@
+{
+  "name": "SPECTRE NEXUS | GENESIS Early Access",
+  "short_name": "GENESIS",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07090d",
+  "theme_color": "#0a0d12",
+  "description": "GENESIS Early Access \u2014 workforce, capability, compliance and training.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
